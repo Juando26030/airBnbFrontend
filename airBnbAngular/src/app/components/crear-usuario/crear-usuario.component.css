@@ -1,7 +1,7 @@
-body {
+.cuerpo {
+  overflow-y: scroll;
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(180deg, #ece6d9 0%, #cebd99 100%);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -9,10 +9,12 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .login-container {
+  top: 10vw;
+  position: relative;
   width: 40vw;
   height: auto;
   background-color: rgba(0, 0, 0, 0.3);
@@ -21,6 +23,7 @@ body {
   box-shadow: 0 0 1vw rgba(0, 0, 0, 0.5);
   color: #fff;
   text-align: center;
+  margin-bottom: 11vw;
 }
 
 .logo {
@@ -84,7 +87,7 @@ a:hover {
 .cont-flecha {
   position: absolute;
   top: 2vw;
-  left: 29vw;
+  left: 2vw;
 }
 
 .cont-flecha:hover {
