@@ -1,0 +1,13 @@
+<div class="search-bar">
+  <div class="search-field">
+    <label for="location">Ubicación</label>
+    <input type="text" id="location" [(ngModel)]="location" placeholder="Añadir Ubicación">
+  </div>
+  <div class="search-field">
+    <label for="people">Personas</label>
+    <input type="number" id="people" [(ngModel)]="people" placeholder="Añadir Personas">
+  </div>
+  <button class="search-btn" (click)="onSearch()">
+    <img src="search-icon.png" alt="Buscar" />
+  </button>
+</div>

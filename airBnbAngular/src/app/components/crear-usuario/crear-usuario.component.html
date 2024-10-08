@@ -1,0 +1,30 @@
+<div class="login-container">
+  <div class="cont-flecha">
+    <div class="material-symbols-outlined boton-home" (click)="goHome()">arrow_back</div>
+  </div>
+  <div class="logo"></div>
+  <h2>¡Crea tu usuario aquí!</h2>
+  <div class="cont-formulario">
+    <form (ngSubmit)="onSubmit()" #crearUsuarioForm="ngForm">
+      <input type="text" name="nombre" placeholder="Nombre" required [(ngModel)]="nombre">
+      <input type="email" name="correo" placeholder="Correo" required [(ngModel)]="correo">
+      <input type="text" name="telefono" placeholder="Teléfono" required [(ngModel)]="telefono">
+
+      <div class="rol-container">
+        <label for="arrendador">Tipo de usuario:</label>
+        <div class="checkbox-group">
+          <label for="arrendador"><input type="checkbox" name="rol" id="arrendador" [(ngModel)]="arrendador"> Arrendador</label>
+          <label for="arrendatario"><input type="checkbox" name="rol" id="arrendatario" [(ngModel)]="arrendatario"> Arrendatario</label>
+        </div>
+      </div>
+
+      <input type="password" id="contrasenia" name="contrasenia" placeholder="Contraseña" required [(ngModel)]="contrasenia">
+      <input type="password" id="confirmarContrasenia" name="confirmarContrasenia" placeholder="Confirme su contraseña" required [(ngModel)]="confirmarContrasenia">
+
+      <div id="error-msg" *ngIf="errorMsg" style="color:red;">{{ errorMsg }}</div>
+
+      <button type="submit" [disabled]="!crearUsuarioForm.form.valid">Crear usuario</button>
+    </form>
+  </div>
+  <a routerLink="/sesion/login">Volver a log in</a> <!-- Enlace a login -->
+</div>
