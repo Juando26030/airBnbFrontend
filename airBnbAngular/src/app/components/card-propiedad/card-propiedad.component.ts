@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NgIf} from "@angular/common";
+import * as os from "os";
 
 @Component({
   selector: 'app-card-propiedad',
@@ -11,12 +12,13 @@ import {NgIf} from "@angular/common";
   styleUrl: './card-propiedad.component.css'
 })
 export class CardPropiedadComponent {
-  @Input() title: string = '';
-  @Input() beds: number = 0;
-  @Input() baths: number = 0;
-  @Input() wifi: boolean = false;
-  @Input() description: string = '';
-  @Input() availableDate: string = '';
-  @Input() price: string = '';
-  @Input() image: string = '';
+  @Input() nombre: string = '';
+  @Input() habitaciones: number = 0;
+  @Input() banos: number = 0;
+  @Input() mascotas: boolean = false;
+  @Input() descripcion: string = '';
+  @Input() disponibilidad: string = '';
+  @Input() precio: number = 0;
+  @Input() imagen: string = '';
+  protected readonly os = os;
 }

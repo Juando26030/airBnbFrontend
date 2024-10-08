@@ -1,16 +1,16 @@
 <div class="property-card">
-  <img class="property-image" [src]="image" alt="Imagen de la propiedad">
+  <img class="property-image" [src]="imagen" alt="Imagen de la propiedad">
   <div class="property-details">
-    <h3>{{ title }}</h3>
+    <h3>{{ nombre }}</h3>
     <div class="property-info">
-      <span>👤 {{ beds }} cama(s)</span>
-      <span>🍽️ {{ baths }} baño(s)</span>
-      <span *ngIf="wifi">📶 Wifi</span>
+      <span>👤 {{ habitaciones }} cama(s)</span>
+      <span>🍽️ {{ banos }} baño(s)</span>
+      <span *ngIf="mascotas">📶 Wifi</span>
     </div>
-    <p>{{ description }}</p>
+    <p>{{ descripcion }}</p>
     <div class="availability">
-      <span class="available-date">Disponible {{ availableDate }}</span>
-      <span class="price">{{ price }}</span>
+      <span class="available-date">Disponible {{ disponibilidad }}</span>
+      <span class="price">{{ precio }}</span>
     </div>
   </div>
 </div>

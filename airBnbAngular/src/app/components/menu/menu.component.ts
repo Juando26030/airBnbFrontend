@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.css'
+  imports: [
+    FormsModule
+  ],
+  styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
+
+
 
 }
