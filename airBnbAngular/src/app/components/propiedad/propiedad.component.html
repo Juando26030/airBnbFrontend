@@ -1,0 +1,13 @@
+<div class="properties-list">
+  <!-- Recorremos la lista de propiedades usando *ngFor -->
+  <app-card-propiedad *ngFor="let property of properties"
+                      [title]="property.title"
+                      [beds]="property.beds"
+                      [baths]="property.baths"
+                      [wifi]="property.wifi"
+                      [description]="property.description"
+                      [availableDate]="property.availableDate"
+                      [price]="property.price"
+                      [image]="property.image">
+  </app-card-propiedad>
+</div>

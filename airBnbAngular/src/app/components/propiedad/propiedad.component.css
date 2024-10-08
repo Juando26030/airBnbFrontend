@@ -1,0 +1,7 @@
+/* Estilo para la lista de propiedades */
+.properties-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
