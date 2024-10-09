@@ -4,7 +4,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-<div class = "cuerpo">
+<div class="cuerpo">
   <div class="login-container">
     <div class="cont-flecha">
       <div class="material-symbols-outlined boton-home" (click)="goHome()">arrow_back</div>
@@ -13,10 +13,21 @@
     <h2>Inicia sesión</h2>
     <div class="cont-formulario">
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-        <input type="text" name="correo" placeholder="Correo" required [(ngModel)]="correo">
-        <input type="password" name="contrasenia" placeholder="Contraseña" required [(ngModel)]="contrasenia">
+        <!-- Correo -->
+        <input type="text" name="correo" placeholder="Correo" required [(ngModel)]="correo" #correoInput="ngModel">
+        <div *ngIf="correoInput.invalid && correoInput.touched" class="error">El correo es obligatorio.</div>
+
+        <!-- Contraseña -->
+        <input type="password" name="contrasenia" placeholder="Contraseña" required [(ngModel)]="contrasenia" #contraseniaInput="ngModel">
+        <div *ngIf="contraseniaInput.invalid && contraseniaInput.touched" class="error">La contraseña es obligatoria.</div>
+
+        <!-- Botón Login -->
         <button type="submit" [disabled]="!loginForm.form.valid">Login</button>
       </form>
+
+      <!-- Mensajes de error en el inicio de sesión -->
+      <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+
       <a routerLink="/sesion/crear-usuario">¿No tienes cuenta? Crea aquí una</a>
       <div class="footer">
         <a href="#">Políticas de privacidad</a> | <a href="#">Términos de uso</a>
@@ -24,4 +35,3 @@
     </div>
   </div>
 </div>
-

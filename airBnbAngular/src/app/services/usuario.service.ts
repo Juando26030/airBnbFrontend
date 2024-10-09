@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {environment} from "../environments/environment.development";
-
-export interface Usuario {
-  nombre: string;
-  correo: string;
-  telefono: string;
-  contrasenia: string;
-  rol: string;  // "arrendador" o "arrendatario"
-}
+import { UsuarioDTO } from '../DTOs/UsuarioDTO';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +13,20 @@ export class UsuarioService {
 
   // Método para iniciar sesión
   login(correo: string, contrasenia: string): Observable<any> {
-    const params = { correo, contrasenia };
-    return this.http.post(`${environment.SERVER_URL}/login`, null, { params });
+    const params = new HttpParams()
+      .set('correo', correo)
+      .set('contrasenia', contrasenia);
+
+    return this.http.post(`${environment.SERVER_URL}/api/usuarios/login`, {}, { params });
   }
 
   // Método para crear un usuario
-  crearUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post(environment.SERVER_URL, usuario);
+  crearUsuario(usuario: UsuarioDTO): Observable<any> {
+    return this.http.post(`${environment.SERVER_URL}/api/usuarios`, usuario);
+  }
+
+  // Activar usuario
+  activarUsuario(id: number): Observable<any> {
+    return this.http.get(`${environment.SERVER_URL}/api/usuarios/activar/${id}`);
   }
 }

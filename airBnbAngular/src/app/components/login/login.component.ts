@@ -1,33 +1,53 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
+import { UsuarioService } from "../../services/usuario.service";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     FormsModule,
+    NgIf,
     RouterLink
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   correo: string = '';
   contrasenia: string = '';
+  errorMsg: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private usuarioService: UsuarioService) {}
 
   goHome() {
-    this.router.navigate(['/']); // Navegar a la página principal
+    this.router.navigate(['/']);
   }
 
   onSubmit() {
-    if (this.correo && this.contrasenia) {
-      // Aquí puedes hacer la llamada HTTP a tu API
-      console.log('Correo:', this.correo);
-      console.log('Contraseña:', this.contrasenia);
-      // Lógica adicional para iniciar sesión...
+    if (!this.correo || !this.contrasenia) {
+      this.errorMsg = "Todos los campos son obligatorios.";
+      return; // Detenemos el proceso si los campos están vacíos
     }
+
+    this.usuarioService.login(this.correo, this.contrasenia).subscribe({
+      next: (response) => {
+        if (response.autenticado) {
+          this.router.navigate(['/explorar']); // Usuario autenticado, redirigimos
+        }
+      },
+      error: (error) => {
+        // Mensajes de error específicos según el estado
+        if (error.status === 403) {
+          this.errorMsg = "Debes autenticar tu cuenta a través del correo electrónico.";
+        } else if (error.status === 401) {
+          this.errorMsg = "Usuario o contraseña no válidos.";
+        } else {
+          this.errorMsg = "Error desconocido. Por favor, intenta nuevamente.";
+        }
+      }
+    });
   }
 }

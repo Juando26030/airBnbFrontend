@@ -1,4 +1,4 @@
-import { UsuarioDTO } from './usuarioDTO';  // Asegúrate de ajustar la ruta de importación
+import { UsuarioDTO } from './UsuarioDTO';
 
 export interface PropiedadDTO {
   propiedad_id: number;

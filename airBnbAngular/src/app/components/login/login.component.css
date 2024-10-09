@@ -13,7 +13,7 @@
 
 .login-container {
   width: 38vw;
-  height: 24vw;
+  height: 28vw;
   background-color: rgba(0, 0, 0, 0.3);
   padding: 3vw;
   border-radius: 1vw;
@@ -90,4 +90,15 @@ a:hover {
 .cont-flecha:hover {
   cursor: pointer;
   color: #2991ff;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
 }

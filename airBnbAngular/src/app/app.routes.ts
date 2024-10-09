@@ -3,6 +3,8 @@ import {CrearUsuarioComponent} from "./components/crear-usuario/crear-usuario.co
 import {LoginComponent} from "./components/login/login.component";
 import {DashboardExplorarComponent} from "./components/dashboard-explorar/dashboard-explorar.component";
 import {DashboardSesionComponent} from "./components/dashboard-sesion/dashboard-sesion.component";
+import {UsuarioCreadoComponent} from "./components/usuario-creado/usuario-creado.component";
+import {ActivarCuentaComponent} from "./components/activar-cuenta/activar-cuenta.component";
 
 export const routes: Routes = [
   {
@@ -11,9 +13,11 @@ export const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'crear-usuario', component: CrearUsuarioComponent },
-      { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirige a login si la ruta es vacía
+      { path: 'usuario-creado', component: UsuarioCreadoComponent },
+      { path: '', redirectTo: 'login', pathMatch: 'full' }
     ]
   },
+  { path: 'activar/:id', component: ActivarCuentaComponent }, // Ruta de activación
   { path: 'explorar', component: DashboardExplorarComponent },
   { path: '', pathMatch: 'full', redirectTo: 'sesion' },
   { path: '**', redirectTo: 'explorar' }
