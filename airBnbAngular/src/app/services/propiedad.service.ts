@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment.development";
 import {PropiedadDTO} from "../DTOs/PropiedadDTO";
@@ -17,13 +17,14 @@ export class PropiedadService {
   }
   constructor(private http:HttpClient) { }
 
-  getPropiedades(ubicacion: string, cant_personas: number): Observable<PropiedadDTO[]> {
-    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar`, {
-      params: {
-        ubicacion: ubicacion,
-        cant_personas: cant_personas.toString() // Convertimos el número a string para los query params
-      }
-    });
+  // Obtener propiedades según filtros
+  getPropiedades(departamento: string, municipio: string, people: number): Observable<PropiedadDTO[]> {
+    let params = new HttpParams();
+    if (departamento) params = params.set('departamento', departamento);
+    if (municipio) params = params.set('municipio', municipio);
+    if (people) params = params.set('cant_personas', people.toString());
+
+    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar`, { params });
   }
 
 }

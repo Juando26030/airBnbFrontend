@@ -21,14 +21,16 @@ export class PropiedadComponent implements OnInit {
   }
 
   // Este método será llamado cuando el menú emita el evento de búsqueda
-  onSearchProperties(searchParams: { location: string, people: number }): void {
-    this.propiedadService.getPropiedades(searchParams.location, searchParams.people).subscribe(
-      (data: PropiedadDTO[]) => {
-        this.properties = data;  // Actualizamos las propiedades con los resultados de la API
-      },
-      (error) => {
-        console.error('Error al cargar propiedades', error);
-      }
-    );
+  // Método que recibe los filtros de búsqueda
+  onSearchProperties(searchParams: { departamento: string, municipio: string, people: number }): void {
+    this.propiedadService.getPropiedades(searchParams.departamento, searchParams.municipio, searchParams.people)
+      .subscribe(
+        (data: PropiedadDTO[]) => {
+          this.properties = data;
+        },
+        (error) => {
+          console.error('Error al cargar propiedades', error);
+        }
+      );
   }
 }

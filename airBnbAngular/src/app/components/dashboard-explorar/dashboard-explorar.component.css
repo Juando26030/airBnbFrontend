@@ -1,0 +1,4 @@
+:host {
+  display: block;
+  padding-top: 80px; /* Asegúrate de que este valor cubra la altura de tu menú */
+}

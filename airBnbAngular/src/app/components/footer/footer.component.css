@@ -1,7 +1,25 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+router-outlet {
+  flex-grow: 1; /* El contenido toma el espacio restante, empujando el footer al final */
+}
+
 .footer {
   background-color: #f0bc70;
   padding: 20px 0;
   font-family: Arial, sans-serif;
+  width: 100%;
 }
 
 .footer__container {
