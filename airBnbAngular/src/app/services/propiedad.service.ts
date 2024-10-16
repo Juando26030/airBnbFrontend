@@ -27,4 +27,9 @@ export class PropiedadService {
     return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar`, { params });
   }
 
+
+  getPropiedadById(id: number): Observable<PropiedadDTO> {
+    return this.http.get<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/${id}`);
+  }
+
 }

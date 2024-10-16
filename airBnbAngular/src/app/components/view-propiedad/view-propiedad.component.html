@@ -1,0 +1,100 @@
+<div *ngIf="propiedad" class="propiedad-container">
+  <!-- Sección de la imagen principal y galería de imágenes -->
+  <div class="propiedad-header">
+    <img [src]="propiedad.imagen" alt="{{ propiedad.nombre }}" class="propiedad-principal-img">
+
+    <div class="galeria">
+      <img src="imagen2.jpg" alt="Imagen 2" class="galeria-img">
+      <img src="imagen3.jpg" alt="Imagen 3" class="galeria-img">
+      <img src="imagen4.jpg" alt="Imagen 4" class="galeria-img">
+    </div>
+  </div>
+
+  <!-- Información principal -->
+  <div class="propiedad-info">
+    <h1>{{ propiedad.nombre }}</h1>
+    <p><strong>{{ propiedad.departamento }}</strong>, {{ propiedad.municipio }}</p>
+
+    <p class="descripcion">{{ propiedad.descripcion }}</p>
+
+    <!-- Detalles adicionales -->
+    <div class="detalles-adicionales">
+      <p><strong>Habitaciones:</strong> {{ propiedad.cant_habitaciones }}</p>
+      <p><strong>Baños:</strong> {{ propiedad.cant_banos }}</p>
+      <p><strong>Mascotas:</strong> {{ propiedad.mascotas ? 'Sí' : 'No' }}</p>
+      <p><strong>Piscina:</strong> {{ propiedad.piscina ? 'Sí' : 'No' }}</p>
+      <p><strong>Asador:</strong> {{ propiedad.asador ? 'Sí' : 'No' }}</p>
+    </div>
+
+    <!-- Detalles de reserva -->
+    <div class="propiedad-reserva">
+      <h2>COP {{ propiedad.valor_noche }} / Noche</h2>
+
+      <div class="reserva-fechas">
+        <label for="checkin">Check-in</label>
+        <input type="date" id="checkin">
+
+        <label for="checkout">Check-out</label>
+        <input type="date" id="checkout">
+      </div>
+
+      <div class="reserva-detalles">
+        <!--<p><strong>Huéspedes:</strong> Máximo {{ propiedad.max_huespedes }}</p>-->
+        <p><strong>Tarifa:</strong> COP {{ propiedad.valor_noche }} / noche</p>
+        <p><strong>Impuestos:</strong> COP 50k</p>
+        <!--<p><strong>Total:</strong> COP {{ calcularTotal() }}</p>-->
+      </div>
+
+      <button class="reservar-btn">Continuar con reserva</button>
+      <button class="contactar-btn">Contactar</button>
+    </div>
+  </div>
+
+
+<div class="location-section">
+    <h2>Localización</h2>
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.2799198273!2d-74.25986527894586!3d40.69767006398378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a3162a7ed03%3A0x8a53196a423ae4ed!2sNueva%20York%2C%20EE.%20UU.!5e0!3m2!1ses!2sco!4v1603589930919!5m2!1ses!2sco"
+        width="600"
+        height="450"
+        frameborder="0"
+        style="border:0;"
+        allowfullscreen=""
+        aria-hidden="false"
+        tabindex="0"
+      ></iframe>
+    </div>
+  </div>
+
+  <div class="policy-details">
+    <h2>Detalles de políticas</h2>
+    <div class="policy-items">
+      <div class="policy-item">
+        <h3>Reglas de finca</h3>
+        <ul>
+          <li>Check-in: 15:00</li>
+          <li>Check-out: 11:00</li>
+          <li>No fumar</li>
+          <li>No mascotas</li>
+          <li>No fiestas o eventos</li>
+        </ul>
+      </div>
+      <div class="policy-item">
+        <h3>Política de cancelación</h3>
+        <ul>
+          <li>Cancelación gratuita hasta 7 días antes del check-in</li>
+        </ul>
+      </div>
+      <div class="policy-item">
+        <h3>Salud y Seguridad</h3>
+        <ul>
+          <li>Limpiar con productos públicos fuertes</li>
+          <li>Seguir las medidas de distanciamiento social</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
