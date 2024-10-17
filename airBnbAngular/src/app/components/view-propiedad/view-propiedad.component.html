@@ -50,8 +50,18 @@
     </div>
   </div>
 
+  <!-- TOGGLE ESTADO -->
+  <div class="toggle-container">
+    <h2 class="titulo-propiedad">Desactivar Propiedad</h2>
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()">
+      <span class="slider round"></span>
+    </label>
+    <p>Estado: {{ propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
+  </div>
 
-<div class="location-section">
+
+  <div class="location-section">
     <h2>Localización</h2>
     <div class="map-container">
       <iframe
