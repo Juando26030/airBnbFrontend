@@ -1,11 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {NgIf} from "@angular/common";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card-propiedad',
   standalone: true,
   imports: [
-    NgIf
+    NgIf, RouterLink
   ],
   templateUrl: './card-propiedad.component.html',
   styleUrl: './card-propiedad.component.css'

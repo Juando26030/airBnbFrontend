@@ -38,3 +38,11 @@
   cursor: pointer;
 }
 
+.navbar-login__link {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+

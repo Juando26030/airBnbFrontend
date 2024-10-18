@@ -1,7 +1,9 @@
 <div class="property-card">
   <img class="property-image" [src]="image" alt="Imagen de la propiedad">
   <div class="property-details">
-    <h3>{{ title }}</h3>
+    <a routerLink="property" class="property-link" style="text-decoration: none;">
+      <h3>{{ title }}</h3>
+    </a>
     <div class="property-info">
       <span>👤 {{ beds }} cama(s)</span>
       <span>🍽️ {{ baths }} baño(s)</span>
