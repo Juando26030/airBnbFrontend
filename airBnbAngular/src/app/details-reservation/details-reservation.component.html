@@ -1,3 +1,29 @@
-
-    <p>details-reservation works!</p>
-
+<div class="details">
+    <div class="details__container">
+        <div class="details__left">
+            <h2 class="details__left-title">Detalles de huesped principal</h2>
+            <form action="post" class="details__left-form">
+                <input type="text" required="true" class="details__left-form-names">
+                <input type="text" required="true" class="details__left-form-lastnames">
+                <input type="text" required="true" class="details__left-form-email">
+                <input type="text" required="true" class="details__left-form-phone">
+                <button type="submit" class="details__left-form-submit">Agregar huesped</button>
+            </form>
+            <div class="details__left-guests">
+                <img src="" alt="Guests" class="details__left-guests-img">
+                <h4 class="details__left-guests-title">Huespedes:      1</h4>
+                <div class="details__left-guests-buttons">
+                    <button class="details__left-guests-buttonadd">+</button>
+                    <button class="details__left-guests-buttonreduce">-</button>
+                </div>
+            </div>
+            <div class="details__left-paymethod">
+                <h2 class="details__left-paymethod-title">
+                    Metodo de pago
+                </h2>
+                <p-dropdown [options]="paymentMethods" optionLabel="name" placeholder="Selecciona un metodo de pago" [showClear]="true"></p-dropdown>
+            </div>
+        </div>
+        <div class="details__right"></div>
+    </div>
+</div>
