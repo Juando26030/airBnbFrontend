@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
+import { ReservationWindowComponent } from '../reservation-window/reservation-window.component';
 import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DropdownMenuComponent],
+  imports: [DropdownMenuComponent, ReservationWindowComponent,NgxIntlTelInputModule, ReactiveFormsModule],
   templateUrl: './details-reservation.component.html',
   styleUrls: ['./details-reservation.component.css']
 })
-export class DetailsReservationComponent  {
+export class DetailsReservationComponent {
   paymentMethods = [
     { name: "Tarjeta" },
     { name: "Transferencia Bancaria" },
   ];
-
 }

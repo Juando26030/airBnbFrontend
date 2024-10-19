@@ -3,15 +3,22 @@
         <div class="details__left">
             <h2 class="details__left-title">Detalles de huesped principal</h2>
             <form action="post" class="details__left-form">
-                <input type="text" required="true" class="details__left-form-names">
-                <input type="text" required="true" class="details__left-form-lastnames">
-                <input type="text" required="true" class="details__left-form-email">
-                <input type="text" required="true" class="details__left-form-phone">
-                <button type="submit" class="details__left-form-submit">Agregar huesped</button>
+                <input type="text" placeholder="Nobres" required="true" class="details__left-form-names details__input">
+                <input type="text" placeholder="Apellidos" required="true" class="details__left-form-lastnames details__input">
+                <input type="email" placeholder="Email" required="true" class="details__left-form-email details__input">
+
+                <div class="phone__container">
+                    <img src="/assets/colombia.png" alt="Colombia" class="phone__image">
+                    <input type="tel" required="true" placeholder="Numero de telefono" class="details__left-form-phone details__input" id="phone">
+                </div>
+
+
+                <button type="submit" class="details__left-form-submit btn-onhover">Agregar huesped</button>
             </form>
             <div class="details__left-guests">
-                <img src="" alt="Guests" class="details__left-guests-img">
-                <h4 class="details__left-guests-title">Huespedes:      1</h4>
+                <img src="/assets/people.png" alt="Guests" class="details__left-guests-img">
+                <h4 class="details__left-guests-title">Huespedes:</h4>
+                <span class="details__left-guests-quantity">1</span>
                 <div class="details__left-guests-buttons">
                     <button class="details__left-guests-buttonadd">+</button>
                     <button class="details__left-guests-buttonreduce">-</button>
@@ -23,7 +30,13 @@
                 </h2>
                 <app-dropdown-menu></app-dropdown-menu>
             </div>
+            <p class="details__left-terms">
+                By clicking "Book" below, I have read and agreed to the <span class="details__left-terms-styled">key contract terms, cancellation policy and apartment & building rules</span> , and to pay the total amount shown.
+            </p>
+            <button class="details__left-submit btn-onhover">Reservar</button>
         </div>
-        <div class="details__right"></div>
+        <div class="details__right">
+            <app-reservation-window></app-reservation-window>
+        </div>
     </div>
 </div>
