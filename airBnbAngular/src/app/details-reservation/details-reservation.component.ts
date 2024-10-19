@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
-import { DropdownModule } from 'primeng/dropdown';
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
-import { BrowserAnimationsModule }
-    from "@angular/platform-browser/animations";
+import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DropdownModule],
+  imports: [DropdownMenuComponent],
   templateUrl: './details-reservation.component.html',
   styleUrls: ['./details-reservation.component.css']
 })
-export class DetailsReservationComponent {
+export class DetailsReservationComponent  {
   paymentMethods = [
     { name: "Tarjeta" },
     { name: "Transferencia Bancaria" },

@@ -1,0 +1,25 @@
+<div class="dropdown-menu-container">
+    <div class="dropdown-menu-title" (click)="isDropDownActive = true">
+
+        <div class="dropdown-menu-title__content">
+            {{selectedOption || "Selecciona un metodo de pago" }}
+            <span *ngIf="selectedOption" (click)="selectedOption = undefined">
+                <img src="/assets/close.png" alt="close" class="dropdown-menu-title__img">
+            </span>
+        </div>
+
+        <div class="dropdown-menu-menu" [ngClass]="{active: isDropDownActive}">
+            <ul class="dropdown-menu__list">
+                <li class="dropdown-menu__item" (click)="selectedOption='Tarjeta'">
+                    <img src="/assets/card.png" alt="card" class="dropdown-menu__image">
+                    <p class="dropdown-menu__text">Tarjeta</p>
+                </li>
+                <li class="dropdown-menu__item" (click)="selectedOption='Transferencia bancaria'">
+                    <img src="/assets/arrows.png" alt="card" class="dropdown-menu__image">
+                    <p class="dropdown-menu__text">Transferencia bancaria</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
