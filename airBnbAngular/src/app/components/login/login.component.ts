@@ -3,6 +3,7 @@ import {Router, RouterLink} from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { UsuarioService } from "../../services/usuario.service";
 import {NgIf} from "@angular/common";
+import {LoginDTO} from "../../DTOs/LoginDTO";
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
   correo: string = '';
   contrasenia: string = '';
   errorMsg: string | null = null;
+  loginDTO: LoginDTO = {} as LoginDTO;
 
   constructor(private router: Router, private usuarioService: UsuarioService) {}
 
@@ -31,8 +33,9 @@ export class LoginComponent {
       this.errorMsg = "Todos los campos son obligatorios.";
       return; // Detenemos el proceso si los campos están vacíos
     }
-
-    this.usuarioService.login(this.correo, this.contrasenia).subscribe({
+    this.loginDTO.contrasenia = this.contrasenia;
+    this.loginDTO.correo = this.correo;
+    this.usuarioService.login(this.loginDTO).subscribe({
       next: (response) => {
         if (response.autenticado) {
           this.router.navigate(['/explorar']); // Usuario autenticado, redirigimos
