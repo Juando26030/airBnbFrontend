@@ -1,0 +1,84 @@
+<div class="pay">
+    <div class="pay__container">
+        <div class="pay__container-left">
+            <h2 class="pay__left-title">
+                Pagar reserva
+            </h2>
+            <p class="pay__left-paymentmethod">
+                Metodo elegido: <span class="pay__left-paymethod-type">{{ selectedPaymentMethod || 'Tarjeta' }}</span>
+              </p>
+
+
+            <app-dropdown-menu-pay (optionSelected)="onPaymentMethodSelected($event)"></app-dropdown-menu-pay>
+
+            <div class="credit-card-form">
+                <form [formGroup]="creditCardForm" (ngSubmit)="submit()">
+                  <div class="credit-card-form-item">
+                    <label for="cardNumber" class="credit-card-form-text">Card Number</label>
+                    <input
+                      id="cardNumber"
+                      type="text"
+                      formControlName="cardNumber"
+                      placeholder="1234 5678 9012 3456"
+                      maxlength="16"
+                      class="credit-card-form-input"
+                    />
+                    <div *ngIf="creditCardForm.get('cardNumber')?.invalid && creditCardForm.get('cardNumber')?.touched">
+                      <small *ngIf="creditCardForm.get('cardNumber')?.errors?.['required']">Card number is required</small>
+                      <small *ngIf="creditCardForm.get('cardNumber')?.errors?.['pattern']">Enter a valid 16-digit card number</small>
+                    </div>
+                  </div>
+
+                  <div class="credit-card-form-item">
+                    <label for="cvv" class="credit-card-form-text">CVV</label>
+                    <input
+                      id="cvv"
+                      type="text"
+                      formControlName="cvv"
+                      placeholder="123"
+                      maxlength="4"
+                      class="credit-card-form-input"
+                    />
+                    <div *ngIf="creditCardForm.get('cvv')?.invalid && creditCardForm.get('cvv')?.touched">
+                      <small *ngIf="creditCardForm.get('cvv')?.errors?.['required']">CVV is required</small>
+                      <small *ngIf="creditCardForm.get('cvv')?.errors?.['pattern']">Enter a valid 3 or 4-digit CVV</small>
+                    </div>
+                  </div>
+
+                  <div class="credit-card-form-item" class="credit-card-form-text">
+                    <label for="expirationDate">Expiration Date (MM/YY)</label>
+                    <input
+                      id="expirationDate"
+                      type="text"
+                      formControlName="expirationDate"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                      class="credit-card-form-input"
+                    />
+                    <div *ngIf="creditCardForm.get('expirationDate')?.invalid && creditCardForm.get('expirationDate')?.touched">
+                      <small *ngIf="creditCardForm.get('expirationDate')?.errors?.['required']">Expiration date is required</small>
+                      <small *ngIf="creditCardForm.get('expirationDate')?.errors?.['pattern']">Enter a valid expiration date (MM/YY)</small>
+                    </div>
+                  </div>
+
+                  <button type="submit" (click)="goToPage('/confirm-reservation');" class="credit-card-form-button btn-onhover">Pagar</button>
+                </form>
+              </div>
+
+              <div class="pay__left-checkbox-container">
+                  <label class="checkbox">
+                        Aceptar terminos y condiciones
+                    <input type="checkbox" checked="checked" required="true" />
+                    <span class="checkmark"></span>
+                  </label>
+              </div>
+
+              <p class="pay__left-terms">
+                By clicking "Book" below, I have read and agreed to the <span class="pay__left-terms-styled">key contract terms, cancellation policy and apartment & building rules</span> , and to pay the total amount shown.
+              </p>
+        </div>
+        <div class="pay__container-right">
+            <app-reservation-window></app-reservation-window>
+        </div>
+    </div>
+</div>

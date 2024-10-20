@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ReservationWindowComponent } from '../reservation-window/reservation-window.component';
 import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,4 +18,10 @@ export class DetailsReservationComponent {
     { name: "Tarjeta" },
     { name: "Transferencia Bancaria" },
   ];
+  constructor(private router: Router) { }
+
+  goToPage(pageName:string){
+
+    this.router.navigate([`${pageName}`]);
+  }
 }
