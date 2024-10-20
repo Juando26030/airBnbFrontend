@@ -23,7 +23,7 @@ export class PropiedadComponent implements OnInit {
   // Este método será llamado cuando el menú emita el evento de búsqueda
   // Método que recibe los filtros de búsqueda
   onSearchProperties(searchParams: { departamento: string, municipio: string, people: number }): void {
-    this.propiedadService.getPropiedades(searchParams.departamento, searchParams.municipio, searchParams.people)
+    this.propiedadService.getPropiedadesUsuario(searchParams.departamento, searchParams.municipio, searchParams.people)
       .subscribe(
         (data: PropiedadDTO[]) => {
           this.properties = data;

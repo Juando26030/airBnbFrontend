@@ -18,13 +18,18 @@ export class PropiedadService {
   constructor(private http:HttpClient) { }
 
   // Obtener propiedades según filtros
-  getPropiedades(departamento: string, municipio: string, people: number): Observable<PropiedadDTO[]> {
+  getPropiedadesUsuario(departamento: string, municipio: string, people: number): Observable<PropiedadDTO[]> {
     let params = new HttpParams();
     if (departamento) params = params.set('departamento', departamento);
     if (municipio) params = params.set('municipio', municipio);
     if (people) params = params.set('cant_personas', people.toString());
 
-    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar`, { params });
+    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar-usuario`, { params });
+  }
+
+  //Obtener propiedades por id admin
+  getPropiedadesAdmin(adminId: number): Observable<PropiedadDTO[]> {
+    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar-admin/${adminId}`);
   }
 
 
