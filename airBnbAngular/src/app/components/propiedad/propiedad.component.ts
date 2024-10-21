@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgForOf } from "@angular/common";
-import { PropiedadService } from '../../services/propiedad.service';  // Importamos el servicio
+import { PropiedadService } from '../../services/propiedad.service';
 import { CardPropiedadComponent } from '../card-propiedad/card-propiedad.component';
 import { PropiedadDTO } from '../../DTOs/PropiedadDTO';
 
@@ -12,25 +12,33 @@ import { PropiedadDTO } from '../../DTOs/PropiedadDTO';
   styleUrls: ['./propiedad.component.css']
 })
 export class PropiedadComponent implements OnInit {
-  properties: PropiedadDTO[] = [];  // Aquí almacenaremos las propiedades cargadas dinámicamente
+  @Input() usuarioId!: number;  // Recibimos el ID del usuario como Input
+  properties: PropiedadDTO[] = [];
 
-  constructor(private propiedadService: PropiedadService) { }
+  constructor(private propiedadService: PropiedadService) {}
 
   ngOnInit(): void {
-    // Por defecto no cargamos propiedades, esperamos la búsqueda
+    // Si no mostramos filtros, cargamos las propiedades alternativas usando el ID del usuario
+    if (this.usuarioId) {
+      this.cargarPropiedadesAlternativas();
+    }
   }
 
-  // Este método será llamado cuando el menú emita el evento de búsqueda
-  // Método que recibe los filtros de búsqueda
   onSearchProperties(searchParams: { departamento: string, municipio: string, people: number }): void {
-    this.propiedadService.getPropiedadesUsuario(searchParams.departamento, searchParams.municipio, searchParams.people)
-      .subscribe(
-        (data: PropiedadDTO[]) => {
-          this.properties = data;
-        },
-        (error) => {
-          console.error('Error al cargar propiedades', error);
-        }
-      );
+    this.propiedadService.getPropiedadesUsuario(
+      searchParams.departamento,
+      searchParams.municipio,
+      searchParams.people
+    ).subscribe(
+      (data: PropiedadDTO[]) => this.properties = data,
+      (error) => console.error('Error al cargar propiedades', error)
+    );
+  }
+
+  cargarPropiedadesAlternativas(): void {
+    this.propiedadService.getPropiedadesAdmin(this.usuarioId).subscribe(
+      (data: PropiedadDTO[]) => this.properties = data,
+      (error) => console.error('Error al cargar propiedades alternativas', error)
+    );
   }
 }

@@ -1,14 +1,14 @@
 <div class="properties-list">
   <app-card-propiedad *ngFor="let property of properties"
                       [nombre]="property.nombre"
-                      [habitaciones]="property.cant_habitaciones"
-                      [banos]="property.cant_banos"
+                      [habitaciones]="property.cantHabitaciones"
+                      [banos]="property.cantBanos"
                       [mascotas]="property.mascotas"
                       [descripcion]="property.descripcion"
                       [disponibilidad]="property.estado"
-                      [precio]="property.valor_noche"
+                      [precio]="property.valorNoche"
                       [imagen]="property.imagen"
                       [properties]="properties"
-                      [idP]="property.propiedad_id">>
+                      [idP]="property.propiedadId">>
   </app-card-propiedad>
 </div>

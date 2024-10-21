@@ -1,20 +1,21 @@
 import { UsuarioDTO } from './UsuarioDTO';
 
 export interface PropiedadDTO {
-  propiedad_id: number;
-  arrendador_id: UsuarioDTO;  // Relación con UsuarioDTO
+  propiedadId: number;
+  arrendadorId: number;  // Relación con UsuarioDTO
   imagen: string;
   nombre: string;
   departamento: string;
   municipio: string;
-  tipo_de_ingreso: string;
+  tipoDeIngreso: string;
   descripcion: string;
-  cant_banos: number;
-  cant_habitaciones: number;
+  cantBanos: number;
+  cantHabitaciones: number;
+  cantPersonas: number;
   mascotas: boolean;
   piscina: boolean;
   asador: boolean;
-  valor_noche: number;
+  valorNoche: number;
   visible: boolean;
   calificacion: number;
   estado: string;

@@ -19,8 +19,8 @@
 
     <!-- Detalles adicionales -->
     <div class="detalles-adicionales">
-      <p><strong>Habitaciones:</strong> {{ propiedad.cant_habitaciones }}</p>
-      <p><strong>Baños:</strong> {{ propiedad.cant_banos }}</p>
+      <p><strong>Habitaciones:</strong> {{ propiedad.cantHabitaciones }}</p>
+      <p><strong>Baños:</strong> {{ propiedad.cantBanos }}</p>
       <p><strong>Mascotas:</strong> {{ propiedad.mascotas ? 'Sí' : 'No' }}</p>
       <p><strong>Piscina:</strong> {{ propiedad.piscina ? 'Sí' : 'No' }}</p>
       <p><strong>Asador:</strong> {{ propiedad.asador ? 'Sí' : 'No' }}</p>
@@ -28,7 +28,7 @@
 
     <!-- Detalles de reserva -->
     <div class="propiedad-reserva">
-      <h2>COP {{ propiedad.valor_noche }} / Noche</h2>
+      <h2>COP {{ propiedad.valorNoche }} / Noche</h2>
 
       <div class="reserva-fechas">
         <label for="checkin">Check-in</label>
@@ -40,7 +40,7 @@
 
       <div class="reserva-detalles">
         <!--<p><strong>Huéspedes:</strong> Máximo {{ propiedad.max_huespedes }}</p>-->
-        <p><strong>Tarifa:</strong> COP {{ propiedad.valor_noche }} / noche</p>
+        <p><strong>Tarifa:</strong> COP {{ propiedad.valorNoche }} / noche</p>
         <p><strong>Impuestos:</strong> COP 50k</p>
         <!--<p><strong>Total:</strong> COP {{ calcularTotal() }}</p>-->
       </div>

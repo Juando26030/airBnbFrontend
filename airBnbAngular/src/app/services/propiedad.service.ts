@@ -46,7 +46,10 @@ export class PropiedadService {
 
   // Actualizar propiedad
   updatePropiedad(propiedad: PropiedadDTO): Observable<PropiedadDTO> {
-    return this.http.put<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/${propiedad.propiedad_id}`, propiedad, this.httnpOptions);
+    return this.http.put<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/${propiedad.propiedadId}`, propiedad, this.httnpOptions);
   }
 
+  crearPropiedad(propiedad: PropiedadDTO): Observable<PropiedadDTO> {
+    return this.http.post<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades`, propiedad);
+  }
 }
