@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { UsuarioService } from "../../services/usuario.service";
 import {NgIf} from "@angular/common";
 import {LoginDTO} from "../../DTOs/LoginDTO";
+import {UsuarioDTO} from "../../DTOs/UsuarioDTO";
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ export class LoginComponent {
   contrasenia: string = '';
   errorMsg: string | null = null;
   loginDTO: LoginDTO = {} as LoginDTO;
+  usuarioDTO: UsuarioDTO = {} as UsuarioDTO;
 
   constructor(private router: Router, private usuarioService: UsuarioService) {}
 
@@ -31,26 +33,29 @@ export class LoginComponent {
   onSubmit() {
     if (!this.correo || !this.contrasenia) {
       this.errorMsg = "Todos los campos son obligatorios.";
-      return; // Detenemos el proceso si los campos están vacíos
+      return;
     }
+
     this.loginDTO.contrasenia = this.contrasenia;
     this.loginDTO.correo = this.correo;
+
     this.usuarioService.login(this.loginDTO).subscribe({
       next: (response) => {
         if (response.autenticado) {
-          this.router.navigate(['/explorar']); // Usuario autenticado, redirigimos
+          // Guardar el usuario en localStorage para acceder a su rol
+          localStorage.setItem('usuario', JSON.stringify(response));
+
+          console.log("El usuario id: "+response.usuarioId);
+          console.log("El usuario rol: "+response.rol);
+
+          // Redirigir al componente "explorar" con el ID del usuario
+          this.router.navigate(['/explorar', response.usuarioId]);
         }
       },
       error: (error) => {
-        // Mensajes de error específicos según el estado
-        if (error.status === 403) {
-          this.errorMsg = "Debes autenticar tu cuenta a través del correo electrónico.";
-        } else if (error.status === 401) {
-          this.errorMsg = "Usuario o contraseña no válidos.";
-        } else {
-          this.errorMsg = "Error desconocido. Por favor, intenta nuevamente.";
-        }
+        this.errorMsg = "Error en el inicio de sesión. Por favor, intente nuevamente.";
       }
     });
   }
+
 }

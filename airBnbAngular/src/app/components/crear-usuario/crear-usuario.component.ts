@@ -44,7 +44,7 @@ export class CrearUsuarioComponent {
 
     // Crear el objeto de usuario conforme a la estructura de UsuarioDTO
     const usuario: UsuarioDTO = {
-      usuario_id: 0, // Este campo lo puedes omitir o poner un valor temporal, será manejado por el backend
+      usuarioId: 0, // Este campo lo puedes omitir o poner un valor temporal, será manejado por el backend
       nombre: this.nombre,
       correo: this.correo,
       telefono: this.telefono,

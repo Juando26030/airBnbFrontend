@@ -13,10 +13,10 @@ export class UsuarioService {
   constructor(private http: HttpClient) {}
 
   // Método para iniciar sesión
-  login(loginDTO: LoginDTO): Observable<any> {
-    // Envía loginDTO en el cuerpo de la solicitud
-    return this.http.post(`${environment.SERVER_URL}/api/usuarios/login`, loginDTO);
+  login(loginDTO: LoginDTO): Observable<UsuarioDTO> {
+    return this.http.post<UsuarioDTO>(`${environment.SERVER_URL}/api/usuarios/login`, loginDTO);
   }
+
 
   // Método para crear un usuario
   crearUsuario(usuario: UsuarioDTO): Observable<any> {

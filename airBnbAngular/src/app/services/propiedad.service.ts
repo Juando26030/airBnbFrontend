@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {environment} from "../environments/environment.development";
 import {PropiedadDTO} from "../DTOs/PropiedadDTO";
 
@@ -22,10 +22,17 @@ export class PropiedadService {
     let params = new HttpParams();
     if (departamento) params = params.set('departamento', departamento);
     if (municipio) params = params.set('municipio', municipio);
-    if (people) params = params.set('cant_personas', people.toString());
+    if (people && people > 0) params = params.set('cant_personas', people.toString());
 
-    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar-usuario`, { params });
+    return this.http.get<PropiedadDTO[]>(`${environment.SERVER_URL}/api/propiedades/buscar-usuario`, { params })
+      .pipe(
+        catchError((error) => {
+          console.error('Error en la solicitud:', error);
+          return throwError(() => error);
+        })
+      );
   }
+
 
   //Obtener propiedades por id admin
   getPropiedadesAdmin(adminId: number): Observable<PropiedadDTO[]> {

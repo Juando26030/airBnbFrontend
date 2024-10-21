@@ -1,3 +1,3 @@
-<app-filtros-busqueda (searchProperties)="onSearchProperties($event)"></app-filtros-busqueda>
+<app-filtros-busqueda *ngIf="mostrarFiltros" (searchProperties)="onSearchProperties($event)"></app-filtros-busqueda>
 <app-propiedad #propiedadComponent></app-propiedad>
 <app-footer></app-footer>
