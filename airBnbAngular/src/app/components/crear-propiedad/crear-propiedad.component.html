@@ -1,0 +1,59 @@
+<div class="cuerpo">
+  <div class="property-container">
+    <div class="cont-flecha">
+      <div class="material-symbols-outlined boton-home" (click)="goBack()">arrow_back</div>
+    </div>
+
+    <h2>Crear Propiedad</h2>
+    <div class="cont-formulario">
+      <form (ngSubmit)="onSubmit()" #propiedadForm="ngForm">
+
+        <!-- Nombre -->
+        <input type="text" name="nombre" placeholder="Nombre" required [(ngModel)]="propiedad.nombre" #nombreInput="ngModel">
+        <div *ngIf="nombreInput.invalid && nombreInput.touched" class="error">El nombre es obligatorio.</div>
+
+        <!-- Departamento -->
+        <input type="text" name="departamento" placeholder="Departamento" required [(ngModel)]="propiedad.departamento" #departamentoInput="ngModel">
+        <div *ngIf="departamentoInput.invalid && departamentoInput.touched" class="error">El departamento es obligatorio.</div>
+
+        <!-- Municipio -->
+        <input type="text" name="municipio" placeholder="Municipio" required [(ngModel)]="propiedad.municipio" #municipioInput="ngModel">
+        <div *ngIf="municipioInput.invalid && municipioInput.touched" class="error">El municipio es obligatorio.</div>
+
+        <!-- Descripción -->
+        <textarea name="descripcion" placeholder="Descripción" required [(ngModel)]="propiedad.descripcion" #descripcionInput="ngModel"></textarea>
+        <div *ngIf="descripcionInput.invalid && descripcionInput.touched" class="error">La descripción es obligatoria.</div>
+
+        <!-- Imagen -->
+        <input type="text" name="imagen" placeholder="URL Imagen" required [(ngModel)]="propiedad.imagen" #imagenInput="ngModel">
+        <div *ngIf="imagenInput.invalid && imagenInput.touched" class="error">La URL de la imagen es obligatoria.</div>
+
+        <!-- Valor por Noche -->
+        <input type="number" name="valor_noche" placeholder="Valor por Noche" required [(ngModel)]="propiedad.valorNoche" #valorInput="ngModel">
+        <div *ngIf="valorInput.invalid && valorInput.touched" class="error">El valor es obligatorio.</div>
+
+        <!-- Personas, Habitaciones, Baños -->
+        <input type="number" name="cantPersonas" placeholder="Personas" required [(ngModel)]="propiedad.cantPersonas" #personasInput="ngModel">
+        <input type="number" name="cantHabitaciones" placeholder="Habitaciones" required [(ngModel)]="propiedad.cantHabitaciones" #habitacionesInput="ngModel">
+        <input type="number" name="cantBanos" placeholder="Baños" required [(ngModel)]="propiedad.cantBanos" #banosInput="ngModel">
+
+        <!-- Tipo de Ingreso -->
+        <input type="text" name="tipo_de_ingreso" placeholder="Tipo de Ingreso" required [(ngModel)]="propiedad.tipoDeIngreso" #tipoIngresoInput="ngModel">
+        <div *ngIf="tipoIngresoInput.invalid && tipoIngresoInput.touched" class="error">El tipo de ingreso es obligatorio.</div>
+
+        <!-- Checkboxes -->
+        <div class="checkbox-group">
+          <label (click)="toggleCheckbox('visible')">Visible: {{ propiedad.visible ? '✔️' : '❌' }}</label>
+          <label (click)="toggleCheckbox('mascotas')">Mascotas: {{ propiedad.mascotas ? '✔️' : '❌' }}</label>
+          <label (click)="toggleCheckbox('piscina')">Piscina: {{ propiedad.piscina ? '✔️' : '❌' }}</label>
+          <label (click)="toggleCheckbox('asador')">Asador: {{ propiedad.asador ? '✔️' : '❌' }}</label>
+        </div>
+
+        <!-- Botón Crear -->
+        <button type="submit" [disabled]="!propiedadForm.form.valid">Crear Propiedad</button>
+      </form>
+
+      <div *ngIf="errorMsg" class="error-message">{{ errorMsg }}</div>
+    </div>
+  </div>
+</div>
