@@ -1,3 +1,12 @@
-<app-filtros-busqueda *ngIf="mostrarFiltros" (searchProperties)="onSearchProperties($event)"></app-filtros-busqueda>
-<app-propiedad [usuarioId]="usuarioId"></app-propiedad>
+<app-menu></app-menu> <!-- Menú añadido -->
+
+<!-- Solo mostrar filtros y propiedades si no estás en la ruta de crear propiedad -->
+<ng-container *ngIf="!enCrearPropiedad">
+  <app-filtros-busqueda *ngIf="mostrarFiltros" (searchProperties)="onSearchProperties($event)"></app-filtros-busqueda>
+  <app-propiedad [usuarioId]="usuarioId"></app-propiedad>
+</ng-container>
+
+<!-- Aquí se renderizará el componente de Crear Propiedad cuando sea necesario -->
+<router-outlet></router-outlet>
+
 <app-footer></app-footer>

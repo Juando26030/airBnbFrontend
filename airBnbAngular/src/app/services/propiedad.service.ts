@@ -50,6 +50,6 @@ export class PropiedadService {
   }
 
   crearPropiedad(propiedad: PropiedadDTO): Observable<PropiedadDTO> {
-    return this.http.post<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades`, propiedad);
+    return this.http.post<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/crear`, propiedad);
   }
 }

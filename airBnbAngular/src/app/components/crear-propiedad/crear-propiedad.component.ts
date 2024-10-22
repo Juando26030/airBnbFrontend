@@ -1,23 +1,26 @@
-import { Component } from '@angular/core';
-import {PropiedadDTO} from "../../DTOs/PropiedadDTO";
-import {UsuarioDTO} from "../../DTOs/UsuarioDTO";
-import {Router} from "@angular/router";
-import {PropiedadService} from "../../services/propiedad.service";
-import {FormsModule} from "@angular/forms";
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms'; // Importa NgForm para trabajar con formularios
+import { PropiedadDTO } from "../../DTOs/PropiedadDTO";
+import { Router, ActivatedRoute } from "@angular/router"; // Importamos ActivatedRoute para acceder a los parámetros de la URL
+import { PropiedadService } from "../../services/propiedad.service";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-crear-propiedad',
   standalone: true,
-  imports: [
-    FormsModule
-  ],
   templateUrl: './crear-propiedad.component.html',
-  styleUrl: './crear-propiedad.component.css'
+  styleUrls: ['./crear-propiedad.component.css'],
+  imports: [
+    NgIf,
+    FormsModule
+  ]
 })
-export class CrearPropiedadComponent {
-  propiedad: Partial<PropiedadDTO> = {
+export class CrearPropiedadComponent implements OnInit {
+  @ViewChild('propiedadForm') propiedadForm!: NgForm; // Referencia al formulario
+
+  propiedad: PropiedadDTO = {
     propiedadId: 0,
-    arrendadorId: 0,  // Relación con UsuarioDTO
+    arrendadorId: 0,  // Aquí asignaremos el ID desde la URL
     imagen: '',
     nombre: '',
     departamento: '',
@@ -33,17 +36,38 @@ export class CrearPropiedadComponent {
     valorNoche: 0,
     visible: false,
     calificacion: 0,
-    estado: ''
+    estado: 'ACTIVO'
   };
 
   errorMsg: string | null = null;
+  private arrendadorId: number = 0;
 
-  constructor(private router: Router, private propiedadService: PropiedadService) {}
+  constructor(
+    private router: Router,
+    private propiedadService: PropiedadService,
+    private route: ActivatedRoute // Inyectamos ActivatedRoute para acceder a los parámetros de la URL
+  ) {}
+
+  ngOnInit() {
+    // Intentamos obtener el id de la ruta padre (si existe) o directamente de la ruta actual
+    const parentRoute = this.route.parent ? this.route.parent : this.route;
+
+    parentRoute.params.subscribe(params => {  // Suscripción a los parámetros de la ruta
+      this.arrendadorId = +params['id'];  // El '+' convierte el string a número
+      if (!isNaN(this.arrendadorId)) {  // Verifica que no sea NaN
+        this.propiedad.arrendadorId = this.arrendadorId; // Asignar el ID del arrendador a la propiedad
+        console.log('Arrendador ID:', this.arrendadorId);
+      } else {
+        console.error('El ID del arrendador no es válido');
+      }
+    });
+  }
 
   onSubmit() {
-    if (this.validarFormulario()) {
+    // Validación automática usando la referencia del formulario
+    if (this.propiedadForm.form.valid) {
       console.log('Propiedad creada:', this.propiedad);
-      this.propiedadService.crearPropiedad(this.propiedad as PropiedadDTO).subscribe(
+      this.propiedadService.crearPropiedad(this.propiedad).subscribe(
         () => this.router.navigate(['/dashboard']),
         (error) => this.errorMsg = 'Error al crear la propiedad'
       );
@@ -52,11 +76,7 @@ export class CrearPropiedadComponent {
     }
   }
 
-  validarFormulario(): boolean {
-    return Object.values(this.propiedad).every(value => value !== '' && value !== null);
-  }
-
-  toggleCheckbox(prop: keyof PropiedadDTO): void {
+  toggleCheckbox(prop: 'mascotas' | 'piscina' | 'asador' | 'visible'): void {
     this.propiedad[prop] = !this.propiedad[prop];
   }
 
