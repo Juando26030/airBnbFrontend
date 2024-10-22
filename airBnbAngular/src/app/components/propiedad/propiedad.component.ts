@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { NgForOf } from "@angular/common";
-import { CardPropiedadComponent } from '../card-propiedad/card-propiedad.component'; // Asegúrate de importar el componente correctamente
+import { CardPropiedadComponent } from '../card-propiedad/card-propiedad.component';
 
 @Component({
   selector: 'app-propiedad',
   standalone: true,
   imports: [
     NgForOf,
-    CardPropiedadComponent  // Agrega el componente de la tarjeta aquí
+    CardPropiedadComponent
   ],
   templateUrl: './propiedad.component.html',
   styleUrls: ['./propiedad.component.css']
 })
 export class PropiedadComponent {
-  // Lista de propiedades quemadas (hardcoded)
   properties = [
     {
       title: 'Apartamento 1 super chevere',
