@@ -27,4 +27,8 @@ export class UsuarioService {
   activarUsuario(id: number): Observable<any> {
     return this.http.get(`${environment.SERVER_URL}/api/usuarios/activar/${id}`);
   }
+
+  esArrendador(usuarioId: number): Observable<any> {
+    return this.http.get(`${environment.SERVER_URL}/api/usuarios/tipo-usuario/${usuarioId}`);
+  }
 }

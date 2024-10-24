@@ -2,7 +2,12 @@
 
 <!-- Solo mostrar filtros y propiedades si no estás en la ruta de crear propiedad -->
 <ng-container *ngIf="!enCrearPropiedad">
-  <app-filtros-busqueda *ngIf="mostrarFiltros" (searchProperties)="onSearchProperties($event)"></app-filtros-busqueda>
+
+  <!-- Mostrar filtros solo si el usuario no es arrendador (esArrendador == false) -->
+  <app-filtros-busqueda *ngIf="!esArrendador"
+                        (searchProperties)="onSearchProperties($event)">
+  </app-filtros-busqueda>
+
   <app-propiedad [usuarioId]="usuarioId"></app-propiedad>
 </ng-container>
 
