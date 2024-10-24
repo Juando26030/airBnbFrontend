@@ -1,7 +1,7 @@
 <app-menu></app-menu> <!-- Menú añadido -->
 
-<!-- Solo mostrar filtros y propiedades si no estás en la ruta de crear propiedad -->
-<ng-container *ngIf="!enCrearPropiedad">
+<!-- Mostrar el contenido solo si no estamos en la vista de propiedad -->
+<ng-container *ngIf="!enVistaPropiedad && !enCrearPropiedad">
 
   <!-- Mostrar filtros solo si el usuario no es arrendador (esArrendador == false) -->
   <app-filtros-busqueda *ngIf="!esArrendador"
@@ -11,7 +11,8 @@
   <app-propiedad [usuarioId]="usuarioId"></app-propiedad>
 </ng-container>
 
-<!-- Aquí se renderizará el componente de Crear Propiedad cuando sea necesario -->
+<!-- Aquí se renderizará el componente de Crear Propiedad o la vista de propiedad según la ruta -->
 <router-outlet></router-outlet>
 
+<!-- Footer siempre presente -->
 <app-footer></app-footer>

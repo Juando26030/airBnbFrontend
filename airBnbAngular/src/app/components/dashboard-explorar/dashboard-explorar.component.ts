@@ -27,12 +27,12 @@ export class DashboardExplorarComponent implements OnInit {
 
   public usuarioId!: number;
   public esArrendador: boolean = false; // Bandera para verificar si es arrendador
-  enCrearPropiedad: boolean = false;
+  public enCrearPropiedad: boolean = false;
+  public enVistaPropiedad: boolean = false; // Bandera para controlar si estamos en la vista de propiedad
 
   constructor(
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
-    private propiedadService: PropiedadService,
     private router: Router
   ) {}
 
@@ -57,6 +57,8 @@ export class DashboardExplorarComponent implements OnInit {
     this.router.events.subscribe(() => {
       // Verifica si la ruta es '/explorar/:id/crear-propiedad'
       this.enCrearPropiedad = this.router.url.includes('crear-propiedad');
+      // Verifica si la ruta es '/explorar/:id/view-propiedad/:idP'
+      this.enVistaPropiedad = this.router.url.includes('view-propiedad');
     });
   }
 

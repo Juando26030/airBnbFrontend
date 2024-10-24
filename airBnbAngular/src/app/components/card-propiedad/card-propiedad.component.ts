@@ -1,17 +1,15 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { PropiedadDTO } from "../../DTOs/PropiedadDTO";
 import {NgIf} from "@angular/common";
-import * as os from "os";
-import {Router, RouterLink} from "@angular/router";
-import {PropiedadDTO} from "../../DTOs/PropiedadDTO";
 
 @Component({
   selector: 'app-card-propiedad',
   standalone: true,
-  imports: [
-    NgIf,
-    RouterLink
-  ],
   templateUrl: './card-propiedad.component.html',
+  imports: [
+    NgIf
+  ],
   styleUrl: './card-propiedad.component.css'
 })
 export class CardPropiedadComponent {
@@ -23,14 +21,14 @@ export class CardPropiedadComponent {
   @Input() disponibilidad: string = '';
   @Input() precio: number = 0;
   @Input() imagen: string = '';
-  protected readonly os = os;
 
   @Input() properties: PropiedadDTO[] = [];
   @Input() idP: number = 0;
+  @Input() usuarioId: number = 0; // Añade este Input para recibir el ID del usuario
 
   constructor(private router: Router) {}
 
-  viewPropiedad(idP : number){
-    this.router.navigate(['/view-propiedad', idP]); //angular mete ese id en la ruta pa pasarlo
+  viewPropiedad(idP: number) {
+    this.router.navigate([`/explorar/${this.usuarioId}/view-propiedad`, idP]);
   }
 }
