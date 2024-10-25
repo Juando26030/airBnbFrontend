@@ -1,0 +1,149 @@
+.pay__container{
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin: 26px 70px;
+}
+
+.pay__left-title {
+  font-size: 50px;
+  line-height: 60px;
+  margin-bottom: 60px;
+}
+
+.pay__left-paymentmethod {
+  margin-bottom: 40px;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.pay__left-paymethod-type {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.credit-card-form {
+  margin-top: 40px;
+
+}
+
+.credit-card-form-item {
+  margin-bottom: 20px;
+}
+
+.credit-card-form-text {
+  margin-right: 20px;
+}
+
+.credit-card-form-input {
+  background-color: #F2F0F2;
+  min-width: 300px;
+  max-width: 60%;
+  border-radius: 12px;
+  padding: 12px 40px;
+  text-decoration: none;
+  display: block;
+  margin-top: 16px;
+}
+
+.credit-card-form-button {
+  border-radius: 40px;
+  background-color: #064749;
+  width: 126px;
+  height: 48px;
+  padding: 12px 40px;
+  color: #fff;
+  font-size: 17.5px;
+  line-height: 24px;
+  margin-top: 32px;
+  margin-bottom: 40px;
+}
+
+.btn-onhover {
+  transition: all 0.3s ease;
+}
+
+.btn-onhover:hover {
+  background-color: #fff;
+  color: #064749;
+  border: 2px solid #064749;
+  padding: 10px 37px;
+}
+
+.pay__left-checkbox-container {
+  margin-bottom: 40px;
+
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 18px;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  user-select: none;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border: 2px solid #c9c9c9;
+  background-color: #dedbdb;
+}
+
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox:hover input ~ .checkmark {
+  background-color: #7ce1e5;
+}
+.checkbox input:checked ~ .checkmark {
+  background-color: #064749;
+}
+
+.checkbox .checkmark:after {
+  top: -5px;
+  width: 5px;
+  height: 10px;
+  left: 2px;
+  color: white;
+}
+
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkmark:after {
+  content:'✓';
+  position: absolute;
+  display: none;
+}
+
+.pay__left-terms {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+.pay__left-terms-styled {
+  color: #064749;
+  text-decoration: underline;
+  cursor: pointer;
+}

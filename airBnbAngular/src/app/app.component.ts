@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {LoginComponent} from "./components/login/login.component";
-import {MenuComponent} from "./components/menu/menu.component";
-import {CardPropiedadComponent} from "./components/card-propiedad/card-propiedad.component";
-import {PropiedadComponent} from "./components/propiedad/propiedad.component";
-import {FooterComponent} from "./components/footer/footer.component";
-import {DashboardSesionComponent} from "./components/dashboard-sesion/dashboard-sesion.component";
+import {LoginComponent} from "./components/sesion/login/login.component";
+import {MenuComponent} from "./components/explorar/menu/menu.component";
+import {CardPropiedadComponent} from "./components/propiedades/card-propiedad/card-propiedad.component";
+import {PropiedadComponent} from "./components/propiedades/propiedad/propiedad.component";
+import {FooterComponent} from "./components/explorar/footer/footer.component";
+import {DashboardSesionComponent} from "./components/sesion/dashboard-sesion/dashboard-sesion.component";
 
 @Component({
   selector: 'app-root',

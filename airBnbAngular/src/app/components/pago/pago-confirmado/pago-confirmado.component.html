@@ -1,0 +1,44 @@
+<div class="confirm">
+  <div class="confirm__container">
+    <div class="confirm__left">
+      <h2 class="confirm__title">
+        Revisar reserva
+      </h2>
+      <div class="confirm__content">
+        <div class="confirm__item">
+          <p class="confirm__item-name">Renta por noche</p>
+          <p class="confirm__item-price">£2990.00</p>
+        </div>
+        <div class="confirm__item">
+          <div class="confirm__item-container">
+            <p class="confirm__item-name name-light">Abono por limpieza</p>
+            <img src="/assets/more.png" alt="more" class="confirm__item-img">
+          </div>
+          <p class="confirm__item-price name-light">£225.00</p>
+        </div>
+        <div class="confirm__item">
+          <p class="confirm__item-name">Impuestos de plataforma</p>
+          <p class="confirm__item-price">£3340.70</p>
+        </div>
+        <div class="confirm__item confirm__item-total">
+          <p class="confirm__item-name-total">Total</p>
+          <p class="confirm__item-price-total">£4225.00</p>
+        </div>
+      </div>
+      <button class="confirm__button" (click)="openConfirmation()">Confirmar y pagar</button>
+      <div *ngIf="showConfirmation" class="confirmation-modal">
+        <div class="confirmation-modal__content">
+          <img src="/assets/check.png" alt="check">
+          <p>Felicitaciones! Tu reserva en Barrichara fue confirmada</p>
+          <button (click)="confirm()">Editar detalles de reserva</button>
+        </div>
+      </div>
+      <p class="confirm__note">
+        Todavia no se debitara nada
+      </p>
+    </div>
+    <div class="confirm__right">
+      <app-reservation-window></app-reservation-window>
+    </div>
+  </div>
+</div>
