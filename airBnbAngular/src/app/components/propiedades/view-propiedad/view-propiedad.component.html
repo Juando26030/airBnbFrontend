@@ -1,65 +1,53 @@
 <div *ngIf="propiedad" class="propiedad-container">
-  <!-- Sección de la imagen principal y galería de imágenes -->
-  <div class="propiedad-header">
-    <img [src]="propiedad.imagen" alt="{{ propiedad.nombre }}" class="propiedad-principal-img">
-
-    <div class="galeria">
-      <img src="imagen2.jpg" alt="Imagen 2" class="galeria-img">
-      <img src="imagen3.jpg" alt="Imagen 3" class="galeria-img">
-      <img src="imagen4.jpg" alt="Imagen 4" class="galeria-img">
-    </div>
+  <!-- Sección del carrusel de imágenes -->
+  <div class="swiper-container">
+    <swiper [pagination]="{ clickable: true }" [navigation]="true" class="mySwiper">
+      <ng-template swiperSlide *ngFor="let img of propiedad.imagenes">
+        <img [src]="img" alt="Imagen de la propiedad" class="imagen-carrusel" />
+      </ng-template>
+    </swiper>
   </div>
 
-  <!-- Información principal -->
+  <!-- Información principal de la propiedad -->
+  <h2 class="titulo-Descripcion">Propiedad</h2>
   <div class="propiedad-info">
-    <h1>{{ propiedad.nombre }}</h1>
-    <p><strong>{{ propiedad.departamento }}</strong>, {{ propiedad.municipio }}</p>
+    <p><strong>Nombre:</strong> {{ propiedad.nombre }}</p>
 
-    <p class="descripcion">{{ propiedad.descripcion }}</p>
-
-    <!-- Detalles adicionales -->
     <div class="detalles-adicionales">
-      <p><strong>Habitaciones:</strong> {{ propiedad.cantHabitaciones }}</p>
-      <p><strong>Baños:</strong> {{ propiedad.cantBanos }}</p>
+      <p><strong>Departamento:</strong> {{ propiedad.departamento }}</p>
+      <p><strong>Municipio:</strong> {{ propiedad.municipio }}</p>
+      <p><strong>Tipo de Ingreso:</strong> {{ propiedad.tipoDeIngreso }}</p>
+      <p><strong>Descripción:</strong> {{ propiedad.descripcion }}</p>
+      <p><strong>Cantidad Baños:</strong> {{ propiedad.cantBanos }}</p>
+      <p><strong>Cantidad Habitaciones:</strong> {{ propiedad.cantHabitaciones }}</p>
+      <p><strong>Cantidad Personas:</strong> {{ propiedad.cantPersonas }}</p>
       <p><strong>Mascotas:</strong> {{ propiedad.mascotas ? 'Sí' : 'No' }}</p>
       <p><strong>Piscina:</strong> {{ propiedad.piscina ? 'Sí' : 'No' }}</p>
       <p><strong>Asador:</strong> {{ propiedad.asador ? 'Sí' : 'No' }}</p>
+      <p><strong>Valor por Noche:</strong> COP {{ propiedad.valorNoche }}</p>
     </div>
 
-    <!-- Detalles de reserva -->
-    <div class="propiedad-reserva">
-      <h2>COP {{ propiedad.valorNoche }} / Noche</h2>
-
-      <div class="reserva-fechas">
-        <label for="checkin">Check-in</label>
-        <input type="date" id="checkin">
-
-        <label for="checkout">Check-out</label>
-        <input type="date" id="checkout">
-      </div>
-
-      <div class="reserva-detalles">
-        <p><strong>Tarifa:</strong> COP {{ propiedad.valorNoche }} / noche</p>
-        <p><strong>Impuestos:</strong> COP 50k</p>
-      </div>
-
-      <!-- Botón de redirección para continuar con la reserva -->
-      <button class="reservar-btn" (click)="goToPage('/detalles-reserva')">Continuar con reserva</button>
-      <button class="contactar-btn">Contactar</button>
+    <div class="add-photo">
+      <h2 class="titulo-foto">Agregar Foto</h2>
+      <label for="nuevaFotoUrl">URL de la foto:</label>
+      <input type="text" id="nuevaFotoUrl" [(ngModel)]="nuevaFotoUrl" placeholder="Ingresa la URL de la imagen" />
+      <button (click)="subirFoto()">Subir Foto</button>
     </div>
+
+    <button class="actualizar-btn" (click)="actualizarPropiedad()">Actualizar Propiedad</button>
   </div>
 
-  <!-- TOGGLE ESTADO -->
+  <!-- Sección del estado de la propiedad -->
   <div class="toggle-container">
     <h2 class="titulo-propiedad">Desactivar Propiedad</h2>
     <label class="switch">
-      <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()">
+      <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()" />
       <span class="slider round"></span>
     </label>
     <p>Estado: {{ propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
   </div>
 
-  <!-- Localización -->
+  <!-- Sección de la localización -->
   <div class="location-section">
     <h2>Localización</h2>
     <div class="map-container">
@@ -76,22 +64,22 @@
     </div>
   </div>
 
-  <!-- Detalles de políticas -->
+  <!-- Sección de políticas -->
   <div class="policy-details">
-    <h2>Detalles de políticas</h2>
+    <h2>Detalles de Políticas</h2>
     <div class="policy-items">
       <div class="policy-item">
-        <h3>Reglas de finca</h3>
+        <h3>Reglas de Finca</h3>
         <ul>
           <li>Check-in: 15:00</li>
           <li>Check-out: 11:00</li>
-          <li>No fumar</li>
+          <li>Fumar permitido</li>
           <li>No mascotas</li>
-          <li>No fiestas o eventos</li>
+          <li>Fiestas y eventos permitidos</li>
         </ul>
       </div>
       <div class="policy-item">
-        <h3>Política de cancelación</h3>
+        <h3>Política de Cancelación</h3>
         <ul>
           <li>Cancelación gratuita hasta 7 días antes del check-in</li>
         </ul>
@@ -99,8 +87,7 @@
       <div class="policy-item">
         <h3>Salud y Seguridad</h3>
         <ul>
-          <li>Limpiar con productos públicos fuertes</li>
-          <li>Seguir las medidas de distanciamiento social</li>
+          <li>Uso de productos de limpieza fuertes</li>
         </ul>
       </div>
     </div>

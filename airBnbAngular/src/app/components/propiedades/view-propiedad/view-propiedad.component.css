@@ -274,3 +274,79 @@ input:checked + .slider:before {
   margin: 0;
   color: #333;
 }
+
+
+/*Swiper-----------------------------*/
+.propiedad-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.swiper-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.imagen-carrusel {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.detalles-adicionales p {
+  margin: 5px 0;
+}
+
+.add-photo {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-photo input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.add-photo button {
+  padding: 10px;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-photo button:hover {
+  background-color: #e68900;
+}
+
+.actualizar-btn {
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actualizar-btn:hover {
+  background-color: #45a049;
+}
+
+.location-section {
+  margin-top: 40px;
+}
+
+.policy-details {
+  margin-top: 40px;
+}

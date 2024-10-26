@@ -9,10 +9,10 @@ import { ViewPropiedadComponent } from "./components/propiedades/view-propiedad/
 import { CrearPropiedadComponent } from "./components/propiedades/crear-propiedad/crear-propiedad.component";
 
 // Nuevas importaciones de componentes
-import { DetallesReservaComponent} from "./components/pago/detalles-reserva/detalles-reserva.component";
-import { PagarReservaComponent} from "./components/pago/pagar-reserva/pagar-reserva.component";
-import { PagoConfirmadoComponent} from "./components/pago/pago-confirmado/pago-confirmado.component";
-import { VentanaReservaComponent} from "./components/pago/ventana-reserva/ventana-reserva.component";
+import { DetallesReservaComponent } from "./components/pago/detalles-reserva/detalles-reserva.component";
+import { PagarReservaComponent } from "./components/pago/pagar-reserva/pagar-reserva.component";
+import { PagoConfirmadoComponent } from "./components/pago/pago-confirmado/pago-confirmado.component";
+import { VentanaReservaComponent } from "./components/pago/ventana-reserva/ventana-reserva.component";
 
 export const routes: Routes = [
   {
@@ -33,14 +33,17 @@ export const routes: Routes = [
     component: DashboardExplorarComponent,
     children: [
       { path: 'crear-propiedad', component: CrearPropiedadComponent },
-      { path: 'view-propiedad/:idP', component: ViewPropiedadComponent }
+      {
+        path: 'view-propiedad/:idP',
+        component: ViewPropiedadComponent,
+        children: [
+          { path: 'detalles-reserva', component: DetallesReservaComponent },
+          { path: 'pagar-reserva', component: PagarReservaComponent },
+          { path: 'pago-confirmado', component: PagoConfirmadoComponent }
+        ]
+      }
     ]
   },
-
-  // Rutas pagos
-  { path: 'detalles-reserva', component: DetallesReservaComponent },
-  { path: 'pagar-reserva', component: PagarReservaComponent },
-  { path: 'pago-confirmado', component: PagoConfirmadoComponent },
 
   // Redireccionamientos
   { path: '', pathMatch: 'full', redirectTo: 'sesion' },

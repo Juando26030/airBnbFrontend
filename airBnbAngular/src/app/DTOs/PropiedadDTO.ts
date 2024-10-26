@@ -3,7 +3,7 @@ import { UsuarioDTO } from './UsuarioDTO';
 export interface PropiedadDTO {
   propiedadId: number;
   arrendadorId: number;  // Relación con UsuarioDTO
-  imagen: string;
+  imagenes: string[]; // Array de URLs de imágenes
   nombre: string;
   departamento: string;
   municipio: string;

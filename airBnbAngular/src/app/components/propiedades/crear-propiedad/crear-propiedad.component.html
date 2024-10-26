@@ -24,9 +24,17 @@
         <textarea name="descripcion" placeholder="Descripción" required [(ngModel)]="propiedad.descripcion" #descripcionInput="ngModel"></textarea>
         <div *ngIf="descripcionInput.invalid && descripcionInput.touched" class="error">La descripción es obligatoria.</div>
 
-        <!-- Imagen -->
-        <input type="text" name="imagen" placeholder="URL Imagen" required [(ngModel)]="propiedad.imagen" #imagenInput="ngModel">
-        <div *ngIf="imagenInput.invalid && imagenInput.touched" class="error">La URL de la imagen es obligatoria.</div>
+        <!-- Imagenes -->
+        <h3>Imágenes</h3>
+        <div *ngFor="let url of propiedad.imagenes; let i = index" class="image-input">
+          <input type="text" [value]="url" readonly>
+          <button type="button" (click)="removeImage(i)">Eliminar</button>
+        </div>
+
+        <div class="new-image">
+          <input type="text" placeholder="URL Imagen" [(ngModel)]="nuevaImagen" name="nuevaImagen">
+          <button type="button" (click)="addImage()">Agregar Imagen</button>
+        </div>
 
         <!-- Valor por Noche -->
         <input type="number" name="valor_noche" placeholder="Valor por Noche" required [(ngModel)]="propiedad.valorNoche" #valorInput="ngModel">

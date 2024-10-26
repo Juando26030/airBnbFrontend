@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms'; // Importa NgForm para trabajar con formularios
+import { FormsModule, NgForm } from '@angular/forms';
 import { PropiedadDTO } from "../../../DTOs/PropiedadDTO";
-import { Router, ActivatedRoute } from "@angular/router"; // Importamos ActivatedRoute para acceder a los parámetros de la URL
+import { Router, ActivatedRoute } from "@angular/router";
 import { PropiedadService } from "../../../services/propiedad.service";
 import { NgIf } from "@angular/common";
 
@@ -16,12 +16,12 @@ import { NgIf } from "@angular/common";
   ]
 })
 export class CrearPropiedadComponent implements OnInit {
-  @ViewChild('propiedadForm') propiedadForm!: NgForm; // Referencia al formulario
+  @ViewChild('propiedadForm') propiedadForm!: NgForm;
 
   propiedad: PropiedadDTO = {
     propiedadId: 0,
-    arrendadorId: 0,  // Aquí asignaremos el ID desde la URL
-    imagen: '',
+    arrendadorId: 0,
+    imagenes: [],
     nombre: '',
     departamento: '',
     municipio: '',
@@ -39,23 +39,23 @@ export class CrearPropiedadComponent implements OnInit {
     estado: 'ACTIVO'
   };
 
+  nuevaImagen: string = ''; // Nueva URL de imagen que el usuario agrega
   errorMsg: string | null = null;
   private arrendadorId: number = 0;
 
   constructor(
     private router: Router,
     private propiedadService: PropiedadService,
-    private route: ActivatedRoute // Inyectamos ActivatedRoute para acceder a los parámetros de la URL
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    // Intentamos obtener el id de la ruta padre (si existe) o directamente de la ruta actual
     const parentRoute = this.route.parent ? this.route.parent : this.route;
 
-    parentRoute.params.subscribe(params => {  // Suscripción a los parámetros de la ruta
-      this.arrendadorId = +params['id'];  // El '+' convierte el string a número
-      if (!isNaN(this.arrendadorId)) {  // Verifica que no sea NaN
-        this.propiedad.arrendadorId = this.arrendadorId; // Asignar el ID del arrendador a la propiedad
+    parentRoute.params.subscribe(params => {
+      this.arrendadorId = +params['id'];
+      if (!isNaN(this.arrendadorId)) {
+        this.propiedad.arrendadorId = this.arrendadorId;
         console.log('Arrendador ID:', this.arrendadorId);
       } else {
         console.error('El ID del arrendador no es válido');
@@ -63,8 +63,20 @@ export class CrearPropiedadComponent implements OnInit {
     });
   }
 
+  addImage() {
+    if (this.nuevaImagen.trim()) {
+      this.propiedad.imagenes.push(this.nuevaImagen.trim());
+      this.nuevaImagen = ''; // Limpiar el input
+    } else {
+      this.errorMsg = 'La URL de la imagen no puede estar vacía.';
+    }
+  }
+
+  removeImage(index: number) {
+    this.propiedad.imagenes.splice(index, 1);
+  }
+
   onSubmit() {
-    // Validación automática usando la referencia del formulario
     if (this.propiedadForm.form.valid) {
       console.log('Propiedad creada:', this.propiedad);
       this.propiedadService.crearPropiedad(this.propiedad).subscribe(
