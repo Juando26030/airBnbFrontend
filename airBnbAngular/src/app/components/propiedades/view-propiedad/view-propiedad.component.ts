@@ -49,37 +49,45 @@ export class ViewPropiedadComponent implements OnInit {
   // Método que se ejecuta al cargar el componente
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.propiedadId = +params['idP'];
-      this.propiedadService.getPropiedadById(this.propiedadId).subscribe((data: PropiedadDTO) => {
-        this.propiedad = data;
-      });
-    });
+      this.propiedadId = +params['idP'] || 0;
+      this.usuarioActualId = +params['id'] || 0;  // Convierte a número o establece 0 si es `NaN`
 
-    // Obtener el usuarioId de la ruta
-    this.route.params.subscribe(params => {
-      this.usuarioActualId = +params['id']; // '+' convierte el string a número
-      this.usuarioService.obtenerUsuarioPorId(this.usuarioActualId).subscribe((data: UsuarioDTO) => {
-        this.usuario = data;
-      });
+      // Verificar si los IDs son válidos
+      if (this.propiedadId) {
+        this.propiedadService.getPropiedadById(this.propiedadId).subscribe((data: PropiedadDTO) => {
+          this.propiedad = data;
+        });
+      }
+
+      if (this.usuarioActualId) {
+        this.usuarioService.obtenerUsuarioPorId(this.usuarioActualId).subscribe((data: UsuarioDTO) => {
+          this.usuario = data;
+        });
+      }
     });
   }
 
+
+  // Navegación en el carrusel
   // Navegación en el carrusel
   siguienteImagen() {
-    if (this.propiedad) {
+    if (this.propiedad?.imagenes && this.propiedad.imagenes.length > 0) {
       this.imagenIndex = (this.imagenIndex + 1) % this.propiedad.imagenes.length;
     }
   }
 
   anteriorImagen() {
-    if (this.propiedad) {
+    if (this.propiedad?.imagenes && this.propiedad.imagenes.length > 0) {
       this.imagenIndex = (this.imagenIndex - 1 + this.propiedad.imagenes.length) % this.propiedad.imagenes.length;
     }
   }
 
   setImagenIndex(index: number) {
-    this.imagenIndex = index;
+    if (this.propiedad?.imagenes && this.propiedad.imagenes.length > 0) {
+      this.imagenIndex = index;
+    }
   }
+
 
   agregarFoto() {
     if (this.propiedad && this.nuevaFotoUrl) {

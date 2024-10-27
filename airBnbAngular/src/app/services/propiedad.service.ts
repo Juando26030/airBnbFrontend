@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {
+  HttpClient,
+  HttpHeaderResponse,
+  HttpHeaders,
+  HttpParams, HttpProgressEvent,
+  HttpResponse,
+  HttpSentEvent, HttpUserEvent
+} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {environment} from "../environments/environment.development";
 import {PropiedadDTO} from "../DTOs/PropiedadDTO";
@@ -8,7 +15,7 @@ import {PropiedadDTO} from "../DTOs/PropiedadDTO";
   providedIn: 'root'
 })
 export class PropiedadService {
-  private httnpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders(
       {
         'Content-Type': 'application/json'
@@ -46,10 +53,17 @@ export class PropiedadService {
 
   // Actualizar propiedad
   updatePropiedad(propiedad: PropiedadDTO): Observable<PropiedadDTO> {
-    return this.http.put<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/${propiedad.propiedadId}`, propiedad, this.httnpOptions);
+    return this.http.put<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/${propiedad.propiedadId}`, propiedad, this.httpOptions);
   }
 
+  // Crear propiedad
   crearPropiedad(propiedad: PropiedadDTO): Observable<PropiedadDTO> {
-    return this.http.post<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/crear`, propiedad);
+    return this.http.post<PropiedadDTO>(`${environment.SERVER_URL}/api/propiedades/crear`, propiedad, this.httpOptions)
+      .pipe(
+        catchError((error) => {
+          console.error('Error al crear propiedad:', error);
+          return throwError(() => error);
+        })
+      );
   }
 }
