@@ -7,9 +7,9 @@
                       [descripcion]="property.descripcion"
                       [disponibilidad]="property.estado"
                       [precio]="property.valorNoche"
-                      [imagen]="property.imagen"
+                      [imagen]="property.imagenes && property.imagenes.length > 0 ? property.imagenes[0] : defaultImage"
                       [properties]="properties"
                       [idP]="property.propiedadId"
-                      [usuarioId]="usuarioId"> <!-- Aquí pasamos usuarioId -->
+                      [usuarioId]="usuarioId">
   </app-card-propiedad>
 </div>

@@ -276,77 +276,83 @@ input:checked + .slider:before {
 }
 
 
-/*Swiper-----------------------------*/
-.propiedad-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.swiper-container {
+/*Carrusel-----------------------------*/
+/* Estilos para el carrusel y la galería de miniaturas */
+.carousel-container {
+  position: relative;
   width: 100%;
   max-width: 600px;
   margin: auto;
 }
 
-.imagen-carrusel {
+.carousel {
   width: 100%;
   height: 400px;
-  object-fit: cover;
-  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.detalles-adicionales p {
-  margin: 5px 0;
+.imagen-carrusel {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.galeria {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.galeria-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.galeria-img.active {
+  border-color: #007BFF;
 }
 
 .add-photo {
-  margin-top: 20px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .add-photo input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
+  padding: 5px;
+  width: 300px;
 }
 
 .add-photo button {
-  padding: 10px;
-  background-color: #ff9800;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  padding: 5px 10px;
   cursor: pointer;
-}
-
-.add-photo button:hover {
-  background-color: #e68900;
-}
-
-.actualizar-btn {
-  padding: 10px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.actualizar-btn:hover {
-  background-color: #45a049;
-}
-
-.location-section {
-  margin-top: 40px;
-}
-
-.policy-details {
-  margin-top: 40px;
 }

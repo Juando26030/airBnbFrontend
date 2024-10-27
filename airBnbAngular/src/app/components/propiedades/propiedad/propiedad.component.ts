@@ -12,13 +12,15 @@ import { PropiedadDTO } from '../../../DTOs/PropiedadDTO';
   styleUrls: ['./propiedad.component.css']
 })
 export class PropiedadComponent implements OnInit {
-  @Input() usuarioId!: number;  // Recibimos el ID del usuario como Input
+  @Input() usuarioId!: number;
   properties: PropiedadDTO[] = [];
+
+  // Imagen predeterminada en caso de que no haya imágenes en `property.imagenes`
+  defaultImage: string = '/assets/default-image.jpg';
 
   constructor(private propiedadService: PropiedadService) {}
 
   ngOnInit(): void {
-    // Si no mostramos filtros, cargamos las propiedades alternativas usando el ID del usuario
     if (this.usuarioId) {
       this.cargarPropiedadesAlternativas();
     }

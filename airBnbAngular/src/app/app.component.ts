@@ -6,12 +6,11 @@ import {CardPropiedadComponent} from "./components/propiedades/card-propiedad/ca
 import {PropiedadComponent} from "./components/propiedades/propiedad/propiedad.component";
 import {FooterComponent} from "./components/explorar/footer/footer.component";
 import {DashboardSesionComponent} from "./components/sesion/dashboard-sesion/dashboard-sesion.component";
-import { SwiperModule } from 'swiper/angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [SwiperModule, RouterOutlet, LoginComponent, MenuComponent, CardPropiedadComponent, PropiedadComponent, FooterComponent, DashboardSesionComponent],
+  imports: [RouterOutlet, LoginComponent, MenuComponent, CardPropiedadComponent, PropiedadComponent, FooterComponent, DashboardSesionComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

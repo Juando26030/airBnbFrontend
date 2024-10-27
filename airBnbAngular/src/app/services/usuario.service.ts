@@ -31,4 +31,8 @@ export class UsuarioService {
   esArrendador(usuarioId: number): Observable<any> {
     return this.http.get(`${environment.SERVER_URL}/api/usuarios/tipo-usuario/${usuarioId}`);
   }
+
+  obtenerUsuarioPorId(usuarioId: number): Observable<UsuarioDTO> {
+    return this.http.get<UsuarioDTO>(`${environment.SERVER_URL}/api/usuarios/${usuarioId}`);
+  }
 }

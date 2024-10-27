@@ -1,53 +1,135 @@
 <div *ngIf="propiedad" class="propiedad-container">
-  <!-- Sección del carrusel de imágenes -->
-  <div class="swiper-container">
-    <swiper [pagination]="{ clickable: true }" [navigation]="true" class="mySwiper">
-      <ng-template swiperSlide *ngFor="let img of propiedad.imagenes">
-        <img [src]="img" alt="Imagen de la propiedad" class="imagen-carrusel" />
-      </ng-template>
-    </swiper>
+  <!-- Sección de la imagen principal y galería de imágenes en carrusel -->
+  <div class="propiedad-header">
+    <!-- Carrusel de imágenes principal -->
+    <div class="carousel-container">
+      <div class="carousel">
+        <img [src]="propiedad.imagenes[imagenIndex]" alt="{{ propiedad.nombre }}" class="imagen-carrusel">
+      </div>
+      <button class="prev" (click)="anteriorImagen()">‹</button>
+      <button class="next" (click)="siguienteImagen()">›</button>
+    </div>
+
+    <!-- Galería de miniaturas -->
+    <div class="galeria">
+      <img *ngFor="let img of propiedad.imagenes; let i = index"
+           [src]="img"
+           [class.active]="i === imagenIndex"
+           (click)="setImagenIndex(i)"
+           alt="Miniatura"
+           class="galeria-img">
+    </div>
+  </div>
+
+  <!-- Agregar Foto -->
+  <div class="add-photo">
+    <h2 class="titulo-foto">Agregar Foto</h2>
+
+    <!-- Campo para ingresar URL de la nueva imagen -->
+    <label for="nuevaFotoUrl">URL de la foto:</label>
+    <input type="text" id="nuevaFotoUrl" [(ngModel)]="nuevaFotoUrl" placeholder="Ingresa la URL de la imagen">
+
+    <!-- Botón para enviar la nueva imagen -->
+    <button (click)="agregarFoto()">Subir Foto</button>
   </div>
 
   <!-- Información principal de la propiedad -->
   <h2 class="titulo-Descripcion">Propiedad</h2>
   <div class="propiedad-info">
-    <p><strong>Nombre:</strong> {{ propiedad.nombre }}</p>
+    <p><strong>Nombre:</strong></p>
+    <h1 *ngIf="!esArrendador">{{ propiedad.nombre }}</h1>
+    <input *ngIf="esArrendador" [(ngModel)]="propiedad.nombre">
 
+    <!-- Detalles adicionales de la propiedad -->
     <div class="detalles-adicionales">
-      <p><strong>Departamento:</strong> {{ propiedad.departamento }}</p>
-      <p><strong>Municipio:</strong> {{ propiedad.municipio }}</p>
-      <p><strong>Tipo de Ingreso:</strong> {{ propiedad.tipoDeIngreso }}</p>
-      <p><strong>Descripción:</strong> {{ propiedad.descripcion }}</p>
-      <p><strong>Cantidad Baños:</strong> {{ propiedad.cantBanos }}</p>
-      <p><strong>Cantidad Habitaciones:</strong> {{ propiedad.cantHabitaciones }}</p>
-      <p><strong>Cantidad Personas:</strong> {{ propiedad.cantPersonas }}</p>
-      <p><strong>Mascotas:</strong> {{ propiedad.mascotas ? 'Sí' : 'No' }}</p>
-      <p><strong>Piscina:</strong> {{ propiedad.piscina ? 'Sí' : 'No' }}</p>
-      <p><strong>Asador:</strong> {{ propiedad.asador ? 'Sí' : 'No' }}</p>
-      <p><strong>Valor por Noche:</strong> COP {{ propiedad.valorNoche }}</p>
+      <p><strong>Departamento: </strong>
+        <span *ngIf="!esArrendador">{{ propiedad.departamento }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.departamento">
+      </p>
+      <p><strong>Municipio: </strong>
+        <span *ngIf="!esArrendador">{{ propiedad.municipio }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.municipio">
+      </p>
+
+      <p><strong>Tipo de ingreso: </strong>
+        <span *ngIf="!esArrendador">{{ propiedad.tipoDeIngreso }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.tipoDeIngreso">
+      </p>
+
+      <p><strong>Descripción: </strong>
+        <span *ngIf="!esArrendador">{{ propiedad.descripcion }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.descripcion">
+      </p>
+
+      <p><strong>Cantidad Baños:</strong>
+        <span *ngIf="!esArrendador">{{ propiedad.cantBanos }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantBanos" type="number">
+      </p>
+      <p><strong>Cantidad Habitaciones:</strong>
+        <span *ngIf="!esArrendador">{{ propiedad.cantHabitaciones }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantHabitaciones" type="number">
+      </p>
+      <p><strong>Cantidad Personas:</strong>
+        <span *ngIf="!esArrendador">{{ propiedad.cantPersonas }}</span>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantPersonas" type="number">
+      </p>
+      <p><strong>Mascotas:</strong>
+        <span *ngIf="!esArrendador">{{ propiedad.mascotas ? 'Sí' : 'No' }}</span>
+        <select *ngIf="esArrendador" [(ngModel)]="propiedad.mascotas">
+          <option [value]="true">Sí</option>
+          <option [value]="false">No</option>
+        </select>
+      </p>
+      <p><strong>Piscina:</strong>
+        <span *ngIf="!esArrendador">{{ propiedad.piscina ? 'Sí' : 'No' }}</span>
+        <select *ngIf="esArrendador" [(ngModel)]="propiedad.piscina">
+          <option [value]="true">Sí</option>
+          <option [value]="false">No</option>
+        </select>
+      </p>
+      <p><strong>Asador:</strong>
+        <span *ngIf="!esArrendador">{{ propiedad.asador ? 'Sí' : 'No' }}</span>
+        <select *ngIf="esArrendador" [(ngModel)]="propiedad.asador">
+          <option [value]="true">Sí</option>
+          <option [value]="false">No</option>
+        </select>
+      </p>
     </div>
 
-    <div class="add-photo">
-      <h2 class="titulo-foto">Agregar Foto</h2>
-      <label for="nuevaFotoUrl">URL de la foto:</label>
-      <input type="text" id="nuevaFotoUrl" [(ngModel)]="nuevaFotoUrl" placeholder="Ingresa la URL de la imagen" />
-      <button (click)="subirFoto()">Subir Foto</button>
-    </div>
+    <div class="propiedad-reserva">
 
-    <button class="actualizar-btn" (click)="actualizarPropiedad()">Actualizar Propiedad</button>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <h2>Valor noche: </h2>
+        <h2 *ngIf="!esArrendador">  COP {{ propiedad.valorNoche }}</h2>
+        <input *ngIf="esArrendador" [(ngModel)]="propiedad.valorNoche" type="number">
+      </div>
+
+      <div class="reserva-fechas">
+        <label for="checkin">Check-in</label>
+        <input type="date" id="checkin" [(ngModel)]="solicitud.fechaInicio" name="checkin">
+
+        <label for="checkout">Check-out</label>
+        <input type="date" id="checkout" [(ngModel)]="solicitud.fechaFin" name="checkout">
+      </div>
+
+      <button class="reservar-btn" (click)="solicitarArriendo()">Solicitar Arriendo</button>
+      <button class="contactar-btn">Calificar Finca</button>
+    </div>
   </div>
+  <button  class="actualizar-btn" (click)="actualizarPropiedad()">Actualizar</button>
 
-  <!-- Sección del estado de la propiedad -->
+
+  <!-- TOGGLE ESTADO -->
   <div class="toggle-container">
     <h2 class="titulo-propiedad">Desactivar Propiedad</h2>
     <label class="switch">
-      <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()" />
+      <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()">
       <span class="slider round"></span>
     </label>
     <p>Estado: {{ propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
   </div>
 
-  <!-- Sección de la localización -->
+
   <div class="location-section">
     <h2>Localización</h2>
     <div class="map-container">
@@ -64,22 +146,21 @@
     </div>
   </div>
 
-  <!-- Sección de políticas -->
   <div class="policy-details">
-    <h2>Detalles de Políticas</h2>
+    <h2>Detalles de políticas</h2>
     <div class="policy-items">
       <div class="policy-item">
-        <h3>Reglas de Finca</h3>
+        <h3>Reglas de finca</h3>
         <ul>
           <li>Check-in: 15:00</li>
           <li>Check-out: 11:00</li>
-          <li>Fumar permitido</li>
+          <li>Si fumar</li>
           <li>No mascotas</li>
-          <li>Fiestas y eventos permitidos</li>
+          <li>Si a las fiestas y eventos, metanle a la loquera</li>
         </ul>
       </div>
       <div class="policy-item">
-        <h3>Política de Cancelación</h3>
+        <h3>Política de cancelación</h3>
         <ul>
           <li>Cancelación gratuita hasta 7 días antes del check-in</li>
         </ul>
@@ -87,9 +168,10 @@
       <div class="policy-item">
         <h3>Salud y Seguridad</h3>
         <ul>
-          <li>Uso de productos de limpieza fuertes</li>
+          <li>Limpiar con productos públicos fuertes</li>
         </ul>
       </div>
     </div>
   </div>
+
 </div>

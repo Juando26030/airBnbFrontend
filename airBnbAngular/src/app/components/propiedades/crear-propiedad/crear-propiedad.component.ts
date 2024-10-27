@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PropiedadDTO } from "../../../DTOs/PropiedadDTO";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PropiedadService } from "../../../services/propiedad.service";
-import { NgIf } from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-crear-propiedad',
@@ -12,7 +12,8 @@ import { NgIf } from "@angular/common";
   styleUrls: ['./crear-propiedad.component.css'],
   imports: [
     NgIf,
-    FormsModule
+    FormsModule,
+    NgForOf
   ]
 })
 export class CrearPropiedadComponent implements OnInit {
