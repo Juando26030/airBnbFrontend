@@ -4,14 +4,15 @@
     <div class="property-details">
       <h3 class="property-name">{{ nombre }}</h3>
       <div class="property-info">
-        <span class="space">👤 {{ habitaciones }} cama(s)</span>
-        <span class="space">🍽️ {{ banos }} baño(s)</span>
-        <span class="space" *ngIf="mascotas">📶 Wifi</span>
+        <span class="space">🛏️ {{ habitaciones }} habitacion(es)</span>
+        <span class="space">🚽 {{ banos }} baño(s)</span>
+        <span class="space" *ngIf="mascotas">🐕 Mascotas</span>
+        <span class="space" *ngIf="piscina">🏊 Piscina</span>
       </div>
       <p class="property-descripcion">{{ descripcion }}</p>
       <div class="availability">
         <span class="available-date">Disponible {{ disponibilidad }}</span>
-        <span class="price">{{ precio }}COP</span>
+        <span class="price">{{ precio }} COP</span>
       </div>
     </div>
   </div>

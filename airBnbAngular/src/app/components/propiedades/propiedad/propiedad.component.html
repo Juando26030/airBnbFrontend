@@ -1,13 +1,18 @@
-<app-card-propiedad *ngFor="let property of properties"
-                    [nombre]="property.nombre"
-                    [habitaciones]="property.cantHabitaciones"
-                    [banos]="property.cantBanos"
-                    [mascotas]="property.mascotas"
-                    [descripcion]="property.descripcion"
-                    [disponibilidad]="property.estado"
-                    [precio]="property.valorNoche"
-                    [imagen]="property.imagenes.length ? property.imagenes[0] : defaultImage"
-                    [properties]="properties"
-                    [idP]="property.propiedadId"
-                    [usuarioId]="usuarioId">
-</app-card-propiedad>
+<div class="grid-container">
+
+    <app-card-propiedad *ngFor="let property of properties"
+                        [nombre]="property.nombre"
+                        [habitaciones]="property.cantHabitaciones"
+                        [banos]="property.cantBanos"
+                        [mascotas]="property.mascotas"
+                        [descripcion]="property.descripcion"
+                        [disponibilidad]="property.estado"
+                        [precio]="property.valorNoche"
+                        [imagen]="property.imagenes.length ? property.imagenes[0] : defaultImage"
+                        [properties]="properties"
+                        [idP]="property.propiedadId"
+                        [usuarioId]="usuarioId"
+                        [piscina]="property.piscina"
+                        class="properties-list">
+    </app-card-propiedad>
+</div>

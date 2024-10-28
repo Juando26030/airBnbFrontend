@@ -10,6 +10,7 @@ import {PropiedadService} from "../../../services/propiedad.service";
 import {UsuarioService} from "../../../services/usuario.service";
 import {SolicitudService} from "../../../services/solicitud.service";
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'view-propiedad',
@@ -17,7 +18,8 @@ import { Router } from '@angular/router';
   imports: [
     NgIf,
     FormsModule,
-    NgForOf
+    NgForOf,
+    CommonModule
   ],
   templateUrl: './view-propiedad.component.html',
   styleUrl: './view-propiedad.component.css'

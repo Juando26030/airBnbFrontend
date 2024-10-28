@@ -42,5 +42,5 @@ export class PropiedadComponent implements OnInit {
       (data: PropiedadDTO[]) => this.properties = data,
       (error) => console.error('Error al cargar propiedades alternativas', error)
     );
-  }
+}
 }

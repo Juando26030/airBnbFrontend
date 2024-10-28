@@ -2,3 +2,8 @@
   display: block;
   padding-top: 80px; /* Asegúrate de que este valor cubra la altura de tu menú */
 }
+
+.container__fluid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

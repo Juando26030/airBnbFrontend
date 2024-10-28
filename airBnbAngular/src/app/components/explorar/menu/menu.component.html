@@ -11,29 +11,29 @@
       <!-- Opciones específicas para el arrendador -->
       <li *ngIf="esArrendador"><a href="#" class="nav__link">
         <p class="nav__text">
-          Ver Solicitudes
+          Ver solicitudes
         </p>
       </a></li>
       <li *ngIf="esArrendador"><a href="#" class="nav__link">
         <p class="nav__text">
-          Historial de Solicitudes
+          Historial de solicitudes
         </p>
       </a></li>
       <li *ngIf="esArrendador"><a href="#" class="nav__link">
         <p class="nav__text">
-          Mi Perfil
+          Mi perfil
         </p>
       </a></li>
 
       <!-- Opciones generales si no es arrendador -->
       <li *ngIf="!esArrendador"><a href="#" class="nav__link">
         <p class="nav__text">
-          Conocer Fincas
+          Conocer fincas
         </p>
       </a></li>
       <li *ngIf="!esArrendador"><a href="#" class="nav__link">
         <p class="nav__text">
-          Sobre Nosotros
+          Sobre nosotros
         </p>
       </a></li>
       <li *ngIf="!esArrendador"><a href="#" class="nav__link">
@@ -44,7 +44,7 @@
     </ul>
 
     <!-- Botón para arrendador -->
-    <button class="login-btn" *ngIf="esArrendador" (click)="irACrearPropiedad()">Crear Propiedad</button>
+    <button class="login-btn" *ngIf="esArrendador" (click)="irACrearPropiedad()">Crear propiedad</button>
 
     <!-- Botón de login -->
     <button class="login-btn">Log in</button>

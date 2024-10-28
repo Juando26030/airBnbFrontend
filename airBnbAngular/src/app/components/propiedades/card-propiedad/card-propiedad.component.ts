@@ -21,6 +21,7 @@ export class CardPropiedadComponent {
   @Input() disponibilidad: string = '';
   @Input() precio: number = 0;
   @Input() imagen: string = '';
+  @Input() piscina: boolean = false;
 
   @Input() properties: PropiedadDTO[] = [];
   @Input() idP: number = 0;

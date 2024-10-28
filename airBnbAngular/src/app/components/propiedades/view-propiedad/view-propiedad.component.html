@@ -11,7 +11,7 @@
     </div>
 
     <!-- Galería de miniaturas -->
-    <div class="galeria">
+    <div class="galeria" [ngClass]="{'three-rows': propiedad.imagenes.length > 4}">
       <img *ngFor="let img of propiedad.imagenes; let i = index"
            [src]="img"
            [class.active]="i === imagenIndex"
@@ -22,7 +22,7 @@
   </div>
 
   <!-- Agregar Foto -->
-  <div class="add-photo">
+  <div class="add-photo" *ngIf="esArrendador">
     <h2 class="titulo-foto">Agregar Foto</h2>
 
     <!-- Campo para ingresar URL de la nueva imagen -->
@@ -33,111 +33,144 @@
     <button (click)="agregarFoto()">Subir Foto</button>
   </div>
 
+  <div class="propiedad__wrap">
   <!-- Información principal de la propiedad -->
-  <h2 class="titulo-Descripcion">Propiedad</h2>
+
   <div class="propiedad-info">
-    <p><strong>Nombre:</strong></p>
-    <h1 *ngIf="!esArrendador">{{ propiedad.nombre }}</h1>
+    <h2 *ngIf="!esArrendador" class="titulooo-propiedad">Propiedad {{propiedad.nombre}}</h2>
+
     <input *ngIf="esArrendador" [(ngModel)]="propiedad.nombre">
 
+
+    <div class="propiedad__cont">
+      <div class="propiedad__container-grafic">
+        <div class="propiedad__container-grafic-item">
+          <img src="/assets/bed.png" alt="" class="propiedad__container-grafic-img">
+        <p><strong>Habitaciones: </strong>
+          <span *ngIf="!esArrendador">{{ propiedad.cantHabitaciones }}</span>
+          <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantHabitaciones" type="number">
+        </p>
+      </div>
+        <div class="propiedad__container-grafic-item">
+          <img src="/assets/bath.png" alt="" class="propiedad__container-grafic-img">
+          <p><strong>Baños: </strong>
+            <span *ngIf="!esArrendador">{{ propiedad.cantBanos }}</span>
+            <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantBanos" type="number">
+          </p>
+        </div>
+      </div>
+
+      <div class="propiedad__container-infoarea">
+        <div class="propiedad__container-infoarea-item">
+          <p><strong>Departamento: </strong>
+            <span *ngIf="!esArrendador">{{ propiedad.departamento }}</span>
+            <input *ngIf="esArrendador" [(ngModel)]="propiedad.departamento">
+          </p>
+        </div>
+        <div class="propiedad__container-grafic-item">
+          <p><strong>Municipio: </strong>
+            <span *ngIf="!esArrendador">{{ propiedad.municipio }}</span>
+            <input *ngIf="esArrendador" [(ngModel)]="propiedad.municipio">
+          </p>
+        </div>
+      </div>
+    </div>
+
     <!-- Detalles adicionales de la propiedad -->
+    <h2 class="titulo-descripcion">Detalles adicionales</h2>
     <div class="detalles-adicionales">
-      <p><strong>Departamento: </strong>
-        <span *ngIf="!esArrendador">{{ propiedad.departamento }}</span>
-        <input *ngIf="esArrendador" [(ngModel)]="propiedad.departamento">
-      </p>
-      <p><strong>Municipio: </strong>
-        <span *ngIf="!esArrendador">{{ propiedad.municipio }}</span>
-        <input *ngIf="esArrendador" [(ngModel)]="propiedad.municipio">
-      </p>
 
       <p><strong>Tipo de ingreso: </strong>
         <span *ngIf="!esArrendador">{{ propiedad.tipoDeIngreso }}</span>
         <input *ngIf="esArrendador" [(ngModel)]="propiedad.tipoDeIngreso">
       </p>
 
-      <p><strong>Descripción: </strong>
-        <span *ngIf="!esArrendador">{{ propiedad.descripcion }}</span>
-        <input *ngIf="esArrendador" [(ngModel)]="propiedad.descripcion">
-      </p>
-
-      <p><strong>Cantidad Baños:</strong>
-        <span *ngIf="!esArrendador">{{ propiedad.cantBanos }}</span>
-        <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantBanos" type="number">
-      </p>
-      <p><strong>Cantidad Habitaciones:</strong>
-        <span *ngIf="!esArrendador">{{ propiedad.cantHabitaciones }}</span>
-        <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantHabitaciones" type="number">
-      </p>
-      <p><strong>Cantidad Personas:</strong>
+      <p><strong>Cantidad de personas maximas: </strong>
         <span *ngIf="!esArrendador">{{ propiedad.cantPersonas }}</span>
         <input *ngIf="esArrendador" [(ngModel)]="propiedad.cantPersonas" type="number">
       </p>
-      <p><strong>Mascotas:</strong>
-        <span *ngIf="!esArrendador">{{ propiedad.mascotas ? 'Sí' : 'No' }}</span>
-        <select *ngIf="esArrendador" [(ngModel)]="propiedad.mascotas">
-          <option [value]="true">Sí</option>
-          <option [value]="false">No</option>
-        </select>
-      </p>
-      <p><strong>Piscina:</strong>
-        <span *ngIf="!esArrendador">{{ propiedad.piscina ? 'Sí' : 'No' }}</span>
-        <select *ngIf="esArrendador" [(ngModel)]="propiedad.piscina">
-          <option [value]="true">Sí</option>
-          <option [value]="false">No</option>
-        </select>
-      </p>
-      <p><strong>Asador:</strong>
-        <span *ngIf="!esArrendador">{{ propiedad.asador ? 'Sí' : 'No' }}</span>
-        <select *ngIf="esArrendador" [(ngModel)]="propiedad.asador">
-          <option [value]="true">Sí</option>
-          <option [value]="false">No</option>
-        </select>
-      </p>
-    </div>
-
-    <div class="propiedad-reserva">
-
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <h2>Valor noche: </h2>
-        <h2 *ngIf="!esArrendador">  COP {{ propiedad.valorNoche }}</h2>
-        <input *ngIf="esArrendador" [(ngModel)]="propiedad.valorNoche" type="number">
+      <div class="container__booleancont">
+        <p><strong>Mascotas: </strong></p>
+          <img class="props__img" *ngIf="propiedad.mascotas==false" src="/assets/no.png" alt="no">
+          <img class="props__img" *ngIf="propiedad.mascotas==true" src="/assets/yes.png" alt="yes">
+          <select *ngIf="esArrendador" [(ngModel)]="propiedad.mascotas">
+            <option [value]="true">Sí</option>
+            <option [value]="false">No</option>
+          </select>
       </div>
 
-      <div class="reserva-fechas">
-        <label for="checkin">Check-in</label>
-        <input type="date" id="checkin" [(ngModel)]="solicitud.fechaInicio" name="checkin">
-
-        <label for="checkout">Check-out</label>
-        <input type="date" id="checkout" [(ngModel)]="solicitud.fechaFin" name="checkout">
+      <div class="container__booleancont">
+        <p><strong>Piscina: </strong></p>
+          <img class="props__img" *ngIf="propiedad.mascotas==false" src="/assets/no.png" alt="no">
+          <img class="props__img" *ngIf="propiedad.mascotas==true" src="/assets/yes.png" alt="yes">
+          <select *ngIf="esArrendador" [(ngModel)]="propiedad.piscina">
+            <option [value]="true">Sí</option>
+            <option [value]="false">No</option>
+          </select>
       </div>
 
-      <button class="reservar-btn" (click)="solicitarArriendo()">Solicitar Arriendo</button>
-      <button class="contactar-btn">Calificar Finca</button>
+      <div class="container__booleancont">
+        <p><strong>Asador: </strong></p>
+          <img class="props__img" *ngIf="propiedad.mascotas==false" src="/assets/no.png" alt="no">
+          <img class="props__img" *ngIf="propiedad.mascotas==true" src="/assets/yes.png" alt="yes">
+          <select *ngIf="esArrendador" [(ngModel)]="propiedad.asador">
+            <option [value]="true">Sí</option>
+            <option [value]="false">No</option>
+          </select>
+      </div>
     </div>
+
+    <p class="descripcion-text"><strong>Descripción: </strong>
+      <span *ngIf="!esArrendador">{{ propiedad.descripcion }}</span>
+      <input *ngIf="esArrendador" [(ngModel)]="propiedad.descripcion">
+    </p>
+
   </div>
-  <button  class="actualizar-btn" (click)="actualizarPropiedad()">Actualizar</button>
+  <div class="propiedad-reserva">
+    <img [src]="propiedad.imagenes[0]" alt="{{ propiedad.nombre }}" class="propiedad-reserva__img">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <h2>Valor noche: </h2>
+      <h2 *ngIf="!esArrendador">  COP {{ propiedad.valorNoche }}</h2>
+      <input *ngIf="esArrendador" [(ngModel)]="propiedad.valorNoche" type="number">
+    </div>
+
+    <div class="reserva-fechas">
+      <label class="check__style" for="checkin">Check-in</label>
+      <input type="date" id="checkin" [(ngModel)]="solicitud.fechaInicio" name="checkin">
+
+      <label class="check__style" for="checkout">Check-out</label>
+      <input type="date" id="checkout" [(ngModel)]="solicitud.fechaFin" name="checkout">
+    </div>
+
+    <button class="reservar-btn" (click)="solicitarArriendo()">Solicitar Arriendo</button>
+    <button class="contactar-btn">Calificar Finca</button>
+  </div>
+
+  </div>
+
+  <button *ngIf="esArrendador"  class="actualizar-btn" (click)="actualizarPropiedad()">Actualizar</button>
 
 
   <!-- TOGGLE ESTADO -->
-  <div class="toggle-container">
+  <div *ngIf="esArrendador" class="toggle-container">
     <h2 class="titulo-propiedad">Desactivar Propiedad</h2>
     <label class="switch">
       <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()">
       <span class="slider round"></span>
     </label>
-    <p>Estado: {{ propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
+    <p class="status">Estado: {{ propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
   </div>
 
 
   <div class="location-section">
-    <h2>Localización</h2>
+    <h2 class="titulo-propiedad">Localización</h2>
     <div class="map-container">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.2799198273!2d-74.25986527894586!3d40.69767006398378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a3162a7ed03%3A0x8a53196a423ae4ed!2sNueva%20York%2C%20EE.%20UU.!5e0!3m2!1ses!2sco!4v1603589930919!5m2!1ses!2sco"
-        width="600"
-        height="450"
+        width="1000"
+        height="750"
         frameborder="0"
+        class="maps"
         style="border:0;"
         allowfullscreen=""
         aria-hidden="false"
@@ -147,7 +180,7 @@
   </div>
 
   <div class="policy-details">
-    <h2>Detalles de políticas</h2>
+    <h2 class="titulo-propiedad">Detalles de políticas</h2>
     <div class="policy-items">
       <div class="policy-item">
         <h3>Reglas de finca</h3>
@@ -175,3 +208,4 @@
   </div>
 
 </div>
+
