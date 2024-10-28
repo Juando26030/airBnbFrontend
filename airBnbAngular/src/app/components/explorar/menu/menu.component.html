@@ -2,17 +2,45 @@
   <nav class="navbar">
     <div class="logo"></div>
     <ul class="nav-links">
-      <li><a href="#">Home</a></li>
+      <li><a href="#" class="nav__link">
+        <p class="nav__text">
+          Home
+        </p>
+      </a></li>
 
       <!-- Opciones específicas para el arrendador -->
-      <li *ngIf="esArrendador"><a href="#">Ver Solicitudes</a></li>
-      <li *ngIf="esArrendador"><a href="#">Historial de Solicitudes</a></li>
-      <li *ngIf="esArrendador"><a href="#">Mi Perfil</a></li>
+      <li *ngIf="esArrendador"><a href="#" class="nav__link">
+        <p class="nav__text">
+          Ver Solicitudes
+        </p>
+      </a></li>
+      <li *ngIf="esArrendador"><a href="#" class="nav__link">
+        <p class="nav__text">
+          Historial de Solicitudes
+        </p>
+      </a></li>
+      <li *ngIf="esArrendador"><a href="#" class="nav__link">
+        <p class="nav__text">
+          Mi Perfil
+        </p>
+      </a></li>
 
       <!-- Opciones generales si no es arrendador -->
-      <li *ngIf="!esArrendador"><a href="#">Conocer Fincas</a></li>
-      <li *ngIf="!esArrendador"><a href="#">Sobre Nosotros</a></li>
-      <li *ngIf="!esArrendador"><a href="#">Contacto</a></li>
+      <li *ngIf="!esArrendador"><a href="#" class="nav__link">
+        <p class="nav__text">
+          Conocer Fincas
+        </p>
+      </a></li>
+      <li *ngIf="!esArrendador"><a href="#" class="nav__link">
+        <p class="nav__text">
+          Sobre Nosotros
+        </p>
+      </a></li>
+      <li *ngIf="!esArrendador"><a href="#" class="nav__link">
+        <p class="nav__text">
+          Contacto
+        </p>
+      </a></li>
     </ul>
 
     <!-- Botón para arrendador -->

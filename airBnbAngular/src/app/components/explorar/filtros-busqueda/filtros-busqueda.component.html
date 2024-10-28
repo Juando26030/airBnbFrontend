@@ -1,16 +1,18 @@
 <!-- filtros-busqueda.component.html -->
 <div class="search-bar">
   <div class="search-field">
-    <label for="departamento">Departamento</label>
+    <label class="label__name" for="departamento">Departamento</label>
     <input type="text" id="departamento" [(ngModel)]="departamento" placeholder="Añadir Departamento">
   </div>
   <div class="search-field">
-    <label for="municipio">Municipio</label>
+    <label class="label__name" for="municipio">Municipio</label>
     <input type="text" id="municipio" [(ngModel)]="municipio" placeholder="Añadir Municipio">
   </div>
-  <div class="search-field">
-    <label for="people">Personas</label>
-    <input type="number" id="people" [(ngModel)]="people" placeholder="Añadir Personas">
+  <div class="search-field search-field-last">
+    <label  class="label__name" for="people">Personas</label>
+    <input min="1" max="20" type="number" class="input__personas" id="people" [(ngModel)]="people" placeholder="Añadir Personas">
   </div>
-  <button class="search-btn" (click)="onSearch()">Buscar</button>
+  <button class="search-btn" (click)="onSearch()">
+    <img src="/assets/search-button.png" alt="search" class="search-btn-image">
+  </button>
 </div>

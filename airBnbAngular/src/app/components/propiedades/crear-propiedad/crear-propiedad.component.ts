@@ -4,6 +4,7 @@ import { PropiedadDTO } from "../../../DTOs/PropiedadDTO";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PropiedadService } from "../../../services/propiedad.service";
 import {NgForOf, NgIf} from "@angular/common";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-propiedad',
@@ -40,6 +41,8 @@ export class CrearPropiedadComponent implements OnInit {
     estado: 'ACTIVO'
   };
 
+
+
   nuevaImagen: string = ''; // Nueva URL de imagen que el usuario agrega
   errorMsg: string | null = null;
   private arrendadorId: number = 0;
@@ -47,8 +50,9 @@ export class CrearPropiedadComponent implements OnInit {
   constructor(
     private router: Router,
     private propiedadService: PropiedadService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+  ) {
+  }
 
   ngOnInit() {
     const parentRoute = this.route.parent ? this.route.parent : this.route;

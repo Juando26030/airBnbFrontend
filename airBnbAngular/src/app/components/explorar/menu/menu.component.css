@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #D39333;
   padding: 10px; /* Reducimos el padding a 10px para más espacio */
   position: fixed;
   top: 0;
@@ -13,12 +13,13 @@
 }
 
 .logo {
-  width: 5vw;
-  height: 5vw;
+  width: 6vw;
+  height: 6vw;
   border-radius: 50%;
   background-image: url("../../../../assets/images/logo.jpg");
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 }
 
 .nav-links {
@@ -31,6 +32,16 @@
 
 .nav-links li {
   display: inline;
+}
+
+.nav__text {
+  font-size: 21px;
+  line-height: 28px;
+  color:#707070;
+}
+
+.nav__text:hover {
+  text-decoration: underline;
 }
 
 .nav-links a {

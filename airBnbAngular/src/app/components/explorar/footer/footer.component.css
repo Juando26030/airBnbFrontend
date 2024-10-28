@@ -1,18 +1,15 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
+
+
+.footer__input {
+  background-color: #f0bc70;
+  border-radius: 21px;
+  border: 1px solid #fff;
+  padding: 6px 7.5px 6px 13.5px;
 }
 
-app-root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ocupa toda la altura de la ventana */
-}
-
-router-outlet {
-  flex-grow: 1; /* El contenido toma el espacio restante, empujando el footer al final */
+.footer__input::placeholder {
+  color: #fff;
+  font-size: 16px;
 }
 
 .footer {
@@ -20,6 +17,7 @@ router-outlet {
   padding: 20px 0;
   font-family: Arial, sans-serif;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .footer__container {
@@ -45,12 +43,6 @@ router-outlet {
   margin-top: 10px;
 }
 
-.footer__subscribe input {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 200px;
-}
 
 .footer__subscribe button {
   padding: 8px 16px;
@@ -74,6 +66,7 @@ router-outlet {
 .footer__center ul li a {
   color: #333;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .footer__right ul {
@@ -101,4 +94,17 @@ router-outlet {
   color: #fff;
   font-size: 0.8rem;
   margin-top: 20px;
+}
+
+.footer__right-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.footer__link-logo {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
 }

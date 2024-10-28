@@ -1,5 +1,4 @@
 <app-menu></app-menu> <!-- Menú añadido -->
-
 <!-- Mostrar el contenido solo si no estamos en la vista de propiedad -->
 <ng-container *ngIf="!enVistaPropiedad && !enCrearPropiedad">
 
@@ -14,5 +13,3 @@
 <!-- Aquí se renderizará el componente de Crear Propiedad o la vista de propiedad según la ruta -->
 <router-outlet></router-outlet>
 
-<!-- Footer siempre presente -->
-<app-footer></app-footer>

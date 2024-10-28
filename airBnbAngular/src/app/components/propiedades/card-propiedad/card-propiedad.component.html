@@ -1,17 +1,17 @@
-<div (click)="viewPropiedad(idP)">
+<div class="propiedad" (click)="viewPropiedad(idP)">
   <div class="property-card">
     <img class="property-image" [src]="imagen" alt="Imagen de la propiedad">
     <div class="property-details">
-      <h3>{{ nombre }}</h3>
+      <h3 class="property-name">{{ nombre }}</h3>
       <div class="property-info">
-        <span>👤 {{ habitaciones }} cama(s)</span>
-        <span>🍽️ {{ banos }} baño(s)</span>
-        <span *ngIf="mascotas">📶 Wifi</span>
+        <span class="space">👤 {{ habitaciones }} cama(s)</span>
+        <span class="space">🍽️ {{ banos }} baño(s)</span>
+        <span class="space" *ngIf="mascotas">📶 Wifi</span>
       </div>
-      <p>{{ descripcion }}</p>
+      <p class="property-descripcion">{{ descripcion }}</p>
       <div class="availability">
         <span class="available-date">Disponible {{ disponibilidad }}</span>
-        <span class="price">{{ precio }}</span>
+        <span class="price">{{ precio }}COP</span>
       </div>
     </div>
   </div>

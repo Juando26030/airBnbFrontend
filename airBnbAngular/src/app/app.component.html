@@ -1,2 +1,12 @@
-<app-menu></app-menu>
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <app-menu></app-menu>
+    <div class="content main">
+        <router-outlet>
+
+        </router-outlet>
+    </div>
+    <footer class="footer" *ngIf="showFooter">
+        <app-footer></app-footer>
+    </footer>
+</div>
+

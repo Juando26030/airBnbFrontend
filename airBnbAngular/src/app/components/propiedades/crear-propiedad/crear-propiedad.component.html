@@ -1,10 +1,12 @@
 <div class="cuerpo">
   <div class="property-container">
     <div class="cont-flecha">
-      <div class="material-symbols-outlined boton-home" (click)="goBack()">arrow_back</div>
+      <div class="material-symbols-outlined boton-home" (click)="goBack()">
+        <img src="/assets/back-button.png" alt="Volver" class="arrow__back">
+      </div>
     </div>
 
-    <h2>Crear Propiedad</h2>
+    <h2 class="crear__title">Crear Propiedad</h2>
     <div class="cont-formulario">
       <form (ngSubmit)="onSubmit()" #propiedadForm="ngForm">
 
@@ -25,7 +27,7 @@
         <div *ngIf="descripcionInput.invalid && descripcionInput.touched" class="error">La descripción es obligatoria.</div>
 
         <!-- Imagenes -->
-        <h3>Imágenes</h3>
+        <h3 class="crear__title-mod">Imágenes</h3>
         <div *ngFor="let url of propiedad.imagenes; let i = index" class="image-input">
           <input type="text" [value]="url" readonly>
           <button type="button" (click)="removeImage(i)">Eliminar</button>
@@ -37,13 +39,13 @@
         </div>
 
         <!-- Valor por Noche -->
-        <input type="number" name="valor_noche" placeholder="Valor por Noche" required [(ngModel)]="propiedad.valorNoche" #valorInput="ngModel">
+        <input class="no-arrows" type="number" min="20000" max="100000000000" name="valor_noche" placeholder="Valor por Noche" required [(ngModel)]="propiedad.valorNoche" #valorInput="ngModel">
         <div *ngIf="valorInput.invalid && valorInput.touched" class="error">El valor es obligatorio.</div>
 
         <!-- Personas, Habitaciones, Baños -->
-        <input type="number" name="cantPersonas" placeholder="Personas" required [(ngModel)]="propiedad.cantPersonas" #personasInput="ngModel">
-        <input type="number" name="cantHabitaciones" placeholder="Habitaciones" required [(ngModel)]="propiedad.cantHabitaciones" #habitacionesInput="ngModel">
-        <input type="number" name="cantBanos" placeholder="Baños" required [(ngModel)]="propiedad.cantBanos" #banosInput="ngModel">
+        <input type="number" min="1" max="20" name="cantPersonas" placeholder="Personas" required [(ngModel)]="propiedad.cantPersonas" #personasInput="ngModel">
+        <input type="number" min="1" max="10" name="cantHabitaciones" placeholder="Habitaciones" required [(ngModel)]="propiedad.cantHabitaciones" #habitacionesInput="ngModel">
+        <input type="number" min="1" max="10" name="cantBanos" placeholder="Baños" required [(ngModel)]="propiedad.cantBanos" #banosInput="ngModel">
 
         <!-- Tipo de Ingreso -->
         <input type="text" name="tipo_de_ingreso" placeholder="Tipo de Ingreso" required [(ngModel)]="propiedad.tipoDeIngreso" #tipoIngresoInput="ngModel">
