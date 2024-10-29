@@ -127,5 +127,4 @@ export class ViewPropiedadComponent implements OnInit {
       'detalles-reserva',
     ]);
   }
-
 }

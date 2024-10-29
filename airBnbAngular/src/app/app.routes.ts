@@ -40,6 +40,10 @@ export const routes: Routes = [
         path: 'view-propiedad/:idP/detalles-reserva',
         component: DetallesReservaComponent,
       },
+      {
+        path: 'view-propiedad/:idP/pagar-reserva',
+        component: PagarReservaComponent,
+      }
     ],
   },
 
