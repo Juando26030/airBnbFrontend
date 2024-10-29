@@ -8,6 +8,8 @@ import { UsuarioDTO } from '../../../DTOs/UsuarioDTO';
 import { PropiedadService } from '../../../services/propiedad.service';
 import { UsuarioService } from '../../../services/usuario.service';
 import { SolicitudService } from '../../../services/solicitud.service';
+import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+
 
 @Component({
   selector: 'view-propiedad',
@@ -16,7 +18,7 @@ import { SolicitudService } from '../../../services/solicitud.service';
   styleUrls: ['./view-propiedad.component.css'],
   imports: [NgIf, FormsModule, NgForOf, CommonModule]
 })
-export class ViewPropiedadComponent implements OnInit {
+export class ViewPropiedadComponent implements OnInit, AfterViewInit {
   propiedad: PropiedadDTO | undefined;
   usuario: UsuarioDTO | undefined;
   solicitud: SolicitudDTO = {
@@ -34,6 +36,20 @@ export class ViewPropiedadComponent implements OnInit {
   esArrendador: boolean = false;
   imagenIndex: number = 0;
 
+  estado:boolean = false;
+
+  @ViewChild('autoResize') textarea!: ElementRef;
+
+  ngAfterViewInit() {
+    this.adjustHeight(); // Initial height adjustment if needed
+  }
+
+  adjustHeight(): void {
+    const textarea = this.textarea.nativeElement;
+    textarea.style.height = 'auto'; // Reset height
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set height based on scroll height
+  }
+
   constructor(
     private route: ActivatedRoute,
     private propiedadService: PropiedadService,
@@ -43,6 +59,15 @@ export class ViewPropiedadComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+      // Verifica si estamos en un entorno de navegador
+      if (typeof window !== 'undefined' && localStorage) {
+        const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+        this.esArrendador = usuario.rol === 'arrendador';
+      } else {
+        console.warn('localStorage no está disponible en este entorno.');
+      }
+
     // Suscríbete a los parámetros del padre para obtener 'idU'
     this.route.parent?.params.subscribe({
       next: (params: Params) => {
@@ -106,6 +131,7 @@ export class ViewPropiedadComponent implements OnInit {
         () => console.log('Propiedad actualizada'),
         (err) => console.log('Error al actualizar la propiedad', err)
       );
+      this.estado = this.propiedad.estado ? true : false;
     }
   }
 

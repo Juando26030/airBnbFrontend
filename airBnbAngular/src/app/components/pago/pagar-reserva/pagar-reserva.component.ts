@@ -6,12 +6,12 @@ import { VentanaReservaComponent } from '../ventana-reserva/ventana-reserva.comp
 import { DropdownMenuPayComponent } from '../dropdown-menu-pay/dropdown-menu-pay.component';
 import { SolicitudDTO } from '../../../DTOs/SolicitudDTO';
 import { PropiedadDTO } from '../../../DTOs/PropiedadDTO';
-import { NgIf } from "@angular/common";
+import {CommonModule,NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-pagar-reserva',
   standalone: true,
-  imports: [ReactiveFormsModule, VentanaReservaComponent, DropdownMenuPayComponent, NgIf],
+  imports: [ReactiveFormsModule, VentanaReservaComponent, DropdownMenuPayComponent, CommonModule, NgIf],
   templateUrl: './pagar-reserva.component.html',
   styleUrls: ['./pagar-reserva.component.css']
 })

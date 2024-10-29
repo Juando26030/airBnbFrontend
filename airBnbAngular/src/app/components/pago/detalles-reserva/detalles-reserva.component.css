@@ -2,7 +2,7 @@
   display: flex;
   align-items: start;
   justify-content: space-between;
-  margin: 26px 70px;
+  margin: 66px 70px;
 }
 
 .details__left-title {
@@ -40,22 +40,33 @@
   margin-bottom: 16px;
 }
 
+.phone__bg {}
+
 .phone__image {
-  margin-right: 16px;
-  height: 30px;
-  width: 30px;
+  margin-right: 13px;
+  height: 35px;
+  width: 35px;
   cursor: pointer;
+  margin-bottom: 17px;
+  background-color: #fff;
+  padding: 1px;
+  border-radius: 50%;
+  border: 1px solid #000;
 }
+
 
 .details__left-form-submit {
   border-radius: 40px;
   background-color: #064749;
+  margin-top: 10px;
   width: 216px;
   height: 50px;
   padding: 12px 40px;
   color: #fff;
   font-size: 17.5px;
   line-height: 24px;
+  white-space: nowrap;
+  display: inline-block;
 }
 
 .details__left-guests {
@@ -83,6 +94,14 @@
   line-height: 24px;
   color:#181A18;
   margin: 0 18px;
+}
+
+.details__left-guests-button {
+  transition: all 0.3s ease;
+}
+
+.details__left-guests-button:hover {
+  transform: scale(1.1);
 }
 
 .details__left-guests-buttonadd {
