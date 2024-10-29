@@ -1,84 +1,104 @@
 <div class="window">
   <div class="window__container">
     <img src="/assets/example1.png" alt="example" class="window__image">
+
     <div class="window__content">
+      <!-- Sección de Check-in y Check-out -->
       <div class="window__content-check">
+
         <div class="window__content-check-in">
-          <h4 class="window__content-check-in-title">
-            Check in
-          </h4>
+          <h4 class="window__content-check-in-title">Check in</h4>
           <div class="window__content-check-in-cont">
-            <img src="/assets/calendar.png" alt="calendar" class="window__content-check-in-image">
-            <p class="window__content-check-in-date">31.12.2021</p>
+            <!-- Check-in Input -->
+            <input
+              type="text"
+              class="window__content-check-in-date"
+              [(ngModel)]="fechaInicioDisplay"
+              (change)="onFechaInicioChange($event)"
+              placeholder="dd/mm/yyyy">
           </div>
         </div>
+
         <div class="window__content-check-out">
-          <h4 class="window__content-check-out-title">
-            Check out
-          </h4>
+          <h4 class="window__content-check-out-title">Check out</h4>
           <div class="window__content-check-out-cont">
-            <img src="/assets/calendar.png" alt="calendar" class="window__content-check-out-image">
-            <p class="window__content-check-out-date">31.02.2022</p>
+            <!-- Check-out Input -->
+            <input
+              type="text"
+              class="window__content-check-out-date"
+              [(ngModel)]="fechaFinDisplay"
+              (change)="onFechaFinChange($event)"
+              placeholder="dd/mm/yyyy">
           </div>
         </div>
+
+
       </div>
+
+      <!-- Sección de Huéspedes -->
       <div class="window__content-guests">
         <div class="window__content-guests-info">
           <img src="/assets/people.png" alt="people" class="window__content-guests-img">
-          <h4 class="window__content-guests-title">Huespedes:</h4>
-          <span class="window__content-guests-quantity">1</span>
+          <h4 class="window__content-guests-title">Huéspedes:</h4>
+          <span class="window__content-guests-quantity">{{ solicitud.huespedes }}</span>
         </div>
-        <p class="window__content-guests-note">
-          Todas las utilidades incluidas
-        </p>
+        <p class="window__content-guests-note">Todas las utilidades incluidas</p>
       </div>
+
+      <!-- Sección de Precios -->
       <div class="window__content-price">
         <ul class="window__content-price-list">
           <li class="window__content-price-item">
             <p class="window__content-price-item-text">Precio renta por noche</p>
             <div class="window__content-price-item-container">
-              <p class="window__content-price-item-price">£3700</p>
+              <p class="window__content-price-item-price">COP {{ propiedad.valorNoche }}</p>
               <p class="window__content-price-item-note">incl. IVA</p>
             </div>
           </li>
+
           <li class="window__content-price-item">
             <div class="window__content-price-item-wrap">
-              <p class="window__content-price-item-text content-text-bold">Page despues de reservar</p>
+              <p class="window__content-price-item-text content-text-bold">Pague después de reservar</p>
               <img src="/assets/more.png" alt="more" class="window__content-price-item-img">
             </div>
             <div class="window__content-price-item-container">
-              <p class="window__content-price-item-price content-text-bold">£3700</p>
+              <p class="window__content-price-item-price content-text-bold">COP {{ propiedad.valorNoche }}</p>
               <p class="window__content-price-item-note">incl. IVA</p>
             </div>
           </li>
+
           <li class="window__content-price-item">
             <div class="window__content-price-item-wrap">
               <p class="window__content-price-item-text">Costos totales</p>
               <img src="/assets/more.png" alt="more" class="window__content-price-item-img">
             </div>
             <div class="window__content-price-item-container">
-              <p class="window__content-price-item-price">£4001</p>
+              <p class="window__content-price-item-price">COP {{ calcularCostosTotales() }}</p>
               <p class="window__content-price-item-note">incl. IVA</p>
             </div>
           </li>
         </ul>
       </div>
+
+      <!-- Sección de Timeline de Pago -->
       <div class="window__content-timeline">
         <h4 class="window__content-timeline-title">Timeline de pago</h4>
         <div class="window__content-timeline-container">
           <img src="/assets/timeline.png" alt="timeline" class="window__content-timeline-img">
+
           <div class="window__content-timeline-info">
             <div class="window__content-timeline-info-item">
               <div class="window__content-timeline-info-item-wrap">
                 <p class="window__content-timeline-info-item-text">Reserve este departamento</p>
                 <p class="window__content-timeline-info-item-textlimit">Vence hoy</p>
               </div>
-              <p class="window__content-timeline-info-item-price">£4001.70</p>
+              <p class="window__content-timeline-info-item-price">COP {{ calcularCostosTotales() }}</p>
             </div>
+
             <div class="window__content-timeline-info-item">
               <div class="window__content-timeline-info-item-wrap">
-                <p class="window__content-timeline-info-item-text">Despues de checkout</p>
-                <p class="window__content-timeline-info-item-textlimit">Reciba su deposito de $400 despues de 30 dias</p>
+                <p class="window__content-timeline-info-item-text">Después de checkout</p>
+                <p class="window__content-timeline-info-item-textlimit">Reciba su depósito de COP 400 después de 30 días</p>
               </div>
               <img src="/assets/more.png" alt="more" class="window__content-timeline-info-item-img"/>
             </div>

@@ -20,6 +20,7 @@ export class ViewPropiedadComponent implements OnInit {
   propiedad: PropiedadDTO | undefined;
   usuario: UsuarioDTO | undefined;
   solicitud: SolicitudDTO = {
+    huespedes: 1,
     solicitudId: 0,
     arrendatario: {} as UsuarioDTO,
     propiedad: {} as PropiedadDTO,

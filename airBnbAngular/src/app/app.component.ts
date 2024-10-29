@@ -8,6 +8,7 @@ import {PropiedadComponent} from "./components/propiedades/propiedad/propiedad.c
 import {FooterComponent} from "./components/explorar/footer/footer.component";
 import {DashboardSesionComponent} from "./components/sesion/dashboard-sesion/dashboard-sesion.component";
 import { CommonModule } from '@angular/common';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

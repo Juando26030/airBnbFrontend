@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
 
     // Extract 'id' from the route parameters
     this.route.paramMap.subscribe(params => {
-      this.arrendadorId = params.get('id');
+      this.arrendadorId = params.get('idU');
     });
   }
 

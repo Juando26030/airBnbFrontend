@@ -9,4 +9,5 @@ export interface SolicitudDTO {
   propiedad: PropiedadDTO;
   fechaInicio: string; // Formato ISO string para Date
   fechaFin: string;    // Formato ISO string para Date
+  huespedes: number;
 }

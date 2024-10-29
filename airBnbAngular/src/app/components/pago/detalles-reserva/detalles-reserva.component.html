@@ -1,38 +1,41 @@
 <div class="details">
   <div class="details__container">
     <div class="details__left">
-      <h2 class="details__left-title">Detalles de huesped principal</h2>
-      <form action="post" class="details__left-form">
-        <input type="text" placeholder="Nobres" required="true" class="details__left-form-names details__input">
-        <input type="text" placeholder="Apellidos" required="true" class="details__left-form-lastnames details__input">
-        <input type="email" placeholder="Email" required="true" class="details__left-form-email details__input">
+      <h2 class="details__left-title">Detalles de huésped principal</h2>
 
-        <div class="phone__container">
-          <img src="/assets/colombia.png" alt="Colombia" class="phone__image">
-          <input type="tel" required="true" placeholder="Numero de telefono" class="details__left-form-phone details__input" id="phone">
-        </div>
+      <div class="details__left-info">
+        <p><strong>Nombre:</strong> {{ usuario?.nombre }}</p>
+        <p><strong>Correo:</strong> {{ usuario?.correo }}</p>
+        <p><strong>Teléfono:</strong> {{ usuario?.telefono }}</p>
+      </div>
 
-
-        <button type="submit" class="details__left-form-submit btn-onhover">Agregar huesped</button>
+      <form class="details__left-form">
+        <!-- Opcional: Si se requiere algún campo de edición adicional -->
       </form>
+
       <div class="details__left-guests">
         <img src="/assets/people.png" alt="Guests" class="details__left-guests-img">
-        <h4 class="details__left-guests-title">Huespedes:</h4>
-        <span class="details__left-guests-quantity">1</span>
+        <h4 class="details__left-guests-title">Huéspedes adicionales:</h4>
+        <span class="details__left-guests-quantity">{{ solicitud.huespedes }}</span>
         <div class="details__left-guests-buttons">
-          <button class="details__left-guests-buttonadd">+</button>
-          <button class="details__left-guests-buttonreduce">-</button>
+          <button (click)="incrementarHuespedes()" class="details__left-guests-buttonadd">+</button>
+          <button (click)="decrementarHuespedes()" class="details__left-guests-buttonreduce">-</button>
         </div>
       </div>
+
+      <p *ngIf="errorMensaje" class="error-message">{{ errorMensaje }}</p>
+
       <p class="details__left-terms">
-        By clicking "Book" below, I have read and agreed to the <span class="details__left-terms-styled">key contract terms, cancellation policy and apartment & building rules</span> , and to pay the total amount shown.
+        Al hacer clic en "Reservar", acepto los <span class="details__left-terms-styled">términos del contrato clave, política de cancelación y reglas del apartamento y edificio</span>, y me comprometo a pagar el monto total mostrado.
       </p>
-      <!-- detalles-reserva.component.html -->
+
       <button class="details__left-submit btn-onhover" (click)="goToPagarReserva()">Reservar</button>
 
     </div>
-    <div class="details__right">
-      <app-reservation-window></app-reservation-window>
+
+    <!-- Agrega *ngIf aquí para esperar que 'propiedad' esté definida -->
+    <div class="details__right" *ngIf="propiedad">
+      <app-reservation-window [propiedad]="propiedad" [solicitud]="solicitud"></app-reservation-window>
     </div>
   </div>
 </div>

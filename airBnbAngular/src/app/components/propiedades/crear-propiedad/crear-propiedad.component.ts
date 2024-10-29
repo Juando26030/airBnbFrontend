@@ -57,7 +57,7 @@ export class CrearPropiedadComponent implements OnInit {
   ngOnInit() {
     const parentRoute = this.route.parent ? this.route.parent : this.route;
     parentRoute.params.subscribe(params => {
-      this.arrendadorId = +params['id'];
+      this.arrendadorId = +params['idU'];
       if (!isNaN(this.arrendadorId)) {
         this.propiedad.arrendadorId = this.arrendadorId;
       } else {
@@ -81,6 +81,8 @@ export class CrearPropiedadComponent implements OnInit {
 
   onSubmit() {
     if (this.propiedadForm.form.valid) {
+      console.log('Antes de crear propiedad');
+      console.log(this.propiedad);
       this.propiedadService.crearPropiedad(this.propiedad).subscribe(
         () => this.router.navigate(['/dashboard']),
         (error) => this.errorMsg = 'Error al crear la propiedad'

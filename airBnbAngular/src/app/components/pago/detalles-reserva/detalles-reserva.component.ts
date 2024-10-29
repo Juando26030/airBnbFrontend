@@ -1,70 +1,95 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {VentanaReservaComponent} from "../ventana-reserva/ventana-reserva.component";
 import {PropiedadDTO} from "../../../DTOs/PropiedadDTO";
 import {UsuarioDTO} from "../../../DTOs/UsuarioDTO";
+import {SolicitudDTO} from '../../../DTOs/SolicitudDTO';
 import {PropiedadService} from "../../../services/propiedad.service";
 import {UsuarioService} from "../../../services/usuario.service";
-import {SolicitudService} from "../../../services/solicitud.service";
-
+import {VentanaReservaComponent} from "../ventana-reserva/ventana-reserva.component";
+import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-detalles-reserva',
   standalone: true,
-  imports: [VentanaReservaComponent],
   templateUrl: './detalles-reserva.component.html',
+  imports: [
+    VentanaReservaComponent,
+    NgIf
+  ],
   styleUrls: ['./detalles-reserva.component.css']
 })
 export class DetallesReservaComponent implements OnInit {
-  paymentMethods = [
-    { name: "Tarjeta" },
-    { name: "Transferencia Bancaria" },
-  ];
-
   propiedad: PropiedadDTO | undefined;
   usuario: UsuarioDTO | undefined;
+  solicitud: SolicitudDTO;
   propiedadId: number = 0;
   usuarioActualId: number = 0;
+  errorMensaje: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private propiedadService: PropiedadService,
     private usuarioService: UsuarioService,
-    private solicitudService: SolicitudService,
-    private router: Router) { }
+    private router: Router
+  ) {
+    // Crear una nueva instancia de SolicitudDTO
+    this.solicitud = {
+      solicitudId: 0,
+      arrendatario: {} as UsuarioDTO,
+      propiedad: {} as PropiedadDTO,
+      huespedes: 1,
+      fechaInicio: '',
+      fechaFin: ''
+    };
+  }
 
   ngOnInit() {
-    // Suscríbete a los parámetros del padre para obtener 'idU'
-    this.route.parent?.params.subscribe({
-      next: (params: Params) => {
-        this.usuarioActualId = +params['idU'] || 0;
-        console.log('Después de setear usuarioActualId: ' + this.usuarioActualId);
-      },
-      error: (err) => console.error('Error obteniendo usuarioActualId:', err)
+    this.route.parent?.params.subscribe((params: Params) => {
+      this.usuarioActualId = +params['idU'] || 0;
     });
 
-    // Suscríbete a los parámetros actuales para obtener 'idP'
-    this.route.params.subscribe({
-      next: (params: Params) => {
-        this.propiedadId = +params['idP'] || 0;
-        console.log('Propiedad ID: ' + this.propiedadId);
-
-        if (this.propiedadId) {
-          this.propiedadService.getPropiedadById(this.propiedadId).subscribe((data: PropiedadDTO) => {
-            this.propiedad = data;
-          });
-        }
-      },
-      error: (err) => console.error('Error obteniendo propiedadId:', err)
+    this.route.params.subscribe((params: Params) => {
+      this.propiedadId = +params['idP'] || 0;
+      if (this.propiedadId) {
+        this.propiedadService.getPropiedadById(this.propiedadId).subscribe((data: PropiedadDTO) => {
+          this.propiedad = data;
+          this.solicitud.propiedad = data;
+        });
+      }
     });
 
     if (this.usuarioActualId) {
       this.usuarioService.obtenerUsuarioPorId(this.usuarioActualId).subscribe((data: UsuarioDTO) => {
         this.usuario = data;
+        this.solicitud.arrendatario = data;
       });
     }
   }
 
-  // detalles-reserva.component.ts
+  incrementarHuespedes() {
+    if (this.solicitud.huespedes < (this.propiedad?.cantPersonas || 1)) {
+      this.solicitud.huespedes++;
+      this.errorMensaje = '';
+    } else {
+      this.errorMensaje = `Máximo de personas: ${this.propiedad?.cantPersonas}`;
+      setTimeout(() => this.errorMensaje = '', 3000);
+    }
+  }
+
+  decrementarHuespedes() {
+    if (this.solicitud.huespedes > 1) {
+      this.solicitud.huespedes--;
+    }
+  }
+
+  // Método para calcular el total de días y costos basado en las fechas seleccionadas
+  calcularCostosTotales(): number {
+    const fechaInicio = new Date(this.solicitud.fechaInicio);
+    const fechaFin = new Date(this.solicitud.fechaFin);
+    const dias = (fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 3600 * 24);
+    return dias * (this.propiedad?.valorNoche || 0);
+  }
+
   goToPagarReserva() {
     this.router.navigate([
       'explorar',
@@ -74,7 +99,4 @@ export class DetallesReservaComponent implements OnInit {
       'pagar-reserva',
     ]);
   }
-
-
-
 }

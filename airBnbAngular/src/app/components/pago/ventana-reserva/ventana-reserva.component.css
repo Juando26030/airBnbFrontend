@@ -140,3 +140,13 @@
 .window__content-timeline-info-item-price {
   margin-left: 100px;
 }
+
+
+.window__content-check-in-date,
+.window__content-check-out-date {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}

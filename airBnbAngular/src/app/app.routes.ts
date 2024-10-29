@@ -33,6 +33,10 @@ export const routes: Routes = [
     component: DashboardExplorarComponent,
     children: [
       {
+        path: 'crear-propiedad',
+        component: CrearPropiedadComponent,
+      },
+      {
         path: 'view-propiedad/:idP',
         component: ViewPropiedadComponent,
       },
