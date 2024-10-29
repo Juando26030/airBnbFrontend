@@ -39,7 +39,7 @@ export class DashboardExplorarComponent implements OnInit {
   ngOnInit(): void {
     // Obtener el usuarioId de la ruta
     this.route.params.subscribe(params => {
-      this.usuarioId = +params['id']; // '+' convierte el string a número
+      this.usuarioId = +params['idU']; // '+' convierte el string a número
 
       // Llamar al servicio y suscribirse al resultado
       this.usuarioService.esArrendador(this.usuarioId).subscribe(

@@ -14,6 +14,7 @@ export class UsuarioService {
 
   // Método para iniciar sesión
   login(loginDTO: LoginDTO): Observable<UsuarioDTO> {
+    console.log("Entrando a servicio login con: ", loginDTO);
     return this.http.post<UsuarioDTO>(`${environment.SERVER_URL}/api/usuarios/login`, loginDTO);
   }
 

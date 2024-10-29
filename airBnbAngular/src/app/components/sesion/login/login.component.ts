@@ -44,7 +44,6 @@ export class LoginComponent {
         if (response.autenticado) {
           // Guardar el usuario en localStorage para acceder a su rol
           localStorage.setItem('usuario', JSON.stringify(response));
-
           console.log("El usuario id: "+response.usuarioId);
           console.log("El usuario rol: "+response.rol);
 

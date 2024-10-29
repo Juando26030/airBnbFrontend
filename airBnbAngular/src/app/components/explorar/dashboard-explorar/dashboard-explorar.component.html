@@ -1,15 +1,11 @@
-<app-menu></app-menu> <!-- Menú añadido -->
-<!-- Mostrar el contenido solo si no estamos en la vista de propiedad -->
+<!-- dashboard-explorar.component.html -->
+<app-menu></app-menu>
 <ng-container *ngIf="!enVistaPropiedad && !enCrearPropiedad">
-
-  <!-- Mostrar filtros solo si el usuario no es arrendador (esArrendador == false) -->
   <app-filtros-busqueda *ngIf="!esArrendador"
                         (searchProperties)="onSearchProperties($event)">
   </app-filtros-busqueda>
-
-    <app-propiedad [usuarioId]="usuarioId"></app-propiedad>
+  <app-propiedad [usuarioId]="usuarioId"></app-propiedad>
 </ng-container>
 
-<!-- Aquí se renderizará el componente de Crear Propiedad o la vista de propiedad según la ruta -->
+<!-- Renderizar vistas secundarias aquí -->
 <router-outlet></router-outlet>
-

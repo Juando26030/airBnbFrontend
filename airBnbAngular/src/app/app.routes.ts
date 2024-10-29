@@ -29,20 +29,18 @@ export const routes: Routes = [
 
   // Modificación para aceptar el ID del usuario como parámetro
   {
-    path: 'explorar/:id',
+    path: 'explorar/:idU',
     component: DashboardExplorarComponent,
     children: [
-      { path: 'crear-propiedad', component: CrearPropiedadComponent },
       {
         path: 'view-propiedad/:idP',
         component: ViewPropiedadComponent,
-        children: [
-          { path: 'detalles-reserva', component: DetallesReservaComponent },
-          { path: 'pagar-reserva', component: PagarReservaComponent },
-          { path: 'pago-confirmado', component: PagoConfirmadoComponent }
-        ]
-      }
-    ]
+      },
+      {
+        path: 'view-propiedad/:idP/detalles-reserva',
+        component: DetallesReservaComponent,
+      },
+    ],
   },
 
   // Redireccionamientos

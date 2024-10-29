@@ -17,8 +17,10 @@ export class DetallesReservaComponent {
   ];
   constructor(private router: Router) { }
 
+  // detalles-reserva.component.ts
   goToPage(pageName: string) {
-    this.router.navigate([`${pageName}`]);
+    this.router.navigate([pageName]);
   }
+
 
 }
