@@ -159,7 +159,7 @@
       <input type="checkbox" [(ngModel)]="propiedad.estado" (change)="cambiarEstado()">
       <span class="slider round"></span>
     </label>
-    <p class="status">Estado: {{ this.propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
+    <p class="status">Estado: {{ !(this.propiedad) || this.propiedad.estado ? 'Disponible' : 'No disponible' }}</p>
   </div>
 
 

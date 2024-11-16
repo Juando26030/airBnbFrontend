@@ -145,13 +145,59 @@ export class ViewPropiedadComponent implements OnInit, AfterViewInit {
   }
 
   // view-propiedad.component.ts
+
+  //Aqui es donde tengo que cambiar bien para que cree el de
   solicitarArriendo() {
-    this.router.navigate([
-      'explorar',
-      this.usuarioActualId,
-      'view-propiedad',
-      this.propiedadId,
-      'detalles-reserva',
-    ]);
+    // this.router.navigate([
+    //   'explorar',
+    //   this.usuarioActualId,
+    //   'view-propiedad',
+    //   this.propiedadId,
+    //   'detalles-reserva',
+    // ]);
+
+    this.usuarioService.obtenerUsuarioPorId(this.usuarioActualId).subscribe({
+      next: (usuario: UsuarioDTO) => {
+        // Construir la solicitud
+        this.solicitud.arrendatario = usuario;
+        // Verificar si 'propiedad' está definida antes de asignar
+        if (this.propiedad) {
+          this.solicitud.propiedad = this.propiedad;
+          this.solicitud.huespedes = this.solicitud.huespedes || 1; // Número de huéspedes por defecto
+          // Convertir las fechas al formato adecuado
+          this.solicitud.fechaInicio = this.solicitud.fechaInicio ? this.formatDate(this.solicitud.fechaInicio) : new Date().toISOString(); // Fecha de inicio
+          this.solicitud.fechaFin = this.solicitud.fechaFin ? this.formatDate(this.solicitud.fechaFin) : new Date().toISOString(); // Fecha de fin
+        }
+        // Llamar al servicio para crear la solicitud
+        this.solicitudService.crearSolicitud(this.solicitud).subscribe({
+          next: (data: SolicitudDTO) => {
+            console.log('Solicitud creada exitosamente:', data);
+            // Navegar al componente de pago o a otra ruta
+            this.router.navigate([
+              'explorar',
+              this.usuarioActualId,
+              'view-propiedad',
+              this.propiedadId,
+              'detalles-reserva'
+            ]);
+          },
+          error: (err) => {
+            console.error('Error al crear la solicitud:', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener el usuario actual:', err);
+      }
+    });
   }
+
+
+  // Método para formatear la fecha a 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\''
+  formatDate(date: string): string {
+    const d = new Date(date);
+    return d.toISOString().split(".")[0] + 'Z'; // Elimina los milisegundos
+  }
+
+
 }
