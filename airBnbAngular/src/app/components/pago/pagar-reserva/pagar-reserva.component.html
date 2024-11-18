@@ -12,7 +12,7 @@
       <app-dropdown-menu-pay (optionSelected)="onPaymentMethodSelected($event)"></app-dropdown-menu-pay>
 
       <div class="credit-card-form">
-        <form [formGroup]="creditCardForm" (ngSubmit)="submit()">
+        <form [formGroup]="creditCardForm">
           <div class="credit-card-form-item">
             <label for="cardNumber" class="credit-card-form-text">Card Number</label>
             <input
@@ -51,7 +51,7 @@
             <label for="expirationDate">Expiration Date (MM/YY)</label>
             <input
               id="expirationDate"
-              type="text"
+              type="Date"
               required="true"
               formControlName="expirationDate"
               placeholder="MM/YY"
@@ -64,7 +64,7 @@
             </div>
           </div>
 
-          <button type="submit" class="credit-card-form-button btn-onhover">Pagar</button>
+          <button class="credit-card-form-button btn-onhover" (click)="pagar()">Pagar</button>
         </form>
       </div>
 

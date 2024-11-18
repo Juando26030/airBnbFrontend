@@ -21,4 +21,8 @@ export class SolicitudService {
   crearSolicitud(solicitud: SolicitudDTO): Observable<SolicitudDTO> {
     return this.http.post<SolicitudDTO>(`${environment.SERVER_URL}/api/solicitudes`, solicitud);
   }
+
+  obtenerSolicitudPorId(id: number): Observable<SolicitudDTO> {
+    return this.http.get<SolicitudDTO>(`${environment.SERVER_URL}/api/solicitudes/${id}`);
+  }
 }

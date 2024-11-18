@@ -607,3 +607,60 @@ input:checked + .slider:before {
     -webkit-appearance: none;
     margin: 0;
 }
+
+
+.details__left-guests {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 76px;
+}
+
+
+.details__left-guests-img {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.details__left-guests-title {
+  font-size: 23px;
+  line-height: 24px;
+  color:#181A18;
+}
+
+.details__left-guests-quantity {
+  display: block;
+  font-size: 23px;
+  line-height: 24px;
+  color:#181A18;
+  margin: 0 18px;
+}
+
+.details__left-guests-button {
+  transition: all 0.3s ease;
+}
+
+.details__left-guests-button:hover {
+  transform: scale(1.1);
+}
+
+.details__left-guests-buttonadd {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  border: 2px solid #000;
+  margin-right: 20px;
+}
+
+.details__left-guests-buttonreduce {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  border: 2px solid #000;
+}
+

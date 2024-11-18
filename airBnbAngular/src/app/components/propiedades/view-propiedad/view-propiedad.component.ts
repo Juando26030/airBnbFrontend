@@ -21,6 +21,7 @@ import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 export class ViewPropiedadComponent implements OnInit, AfterViewInit {
   propiedad: PropiedadDTO | undefined;
   usuario: UsuarioDTO | undefined;
+  errorMensaje: string = '';
   solicitud: SolicitudDTO = {
     huespedes: 1,
     solicitudId: 0,
@@ -144,18 +145,8 @@ export class ViewPropiedadComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // view-propiedad.component.ts
 
-  //Aqui es donde tengo que cambiar bien para que cree el de
   solicitarArriendo() {
-    // this.router.navigate([
-    //   'explorar',
-    //   this.usuarioActualId,
-    //   'view-propiedad',
-    //   this.propiedadId,
-    //   'detalles-reserva',
-    // ]);
-
     this.usuarioService.obtenerUsuarioPorId(this.usuarioActualId).subscribe({
       next: (usuario: UsuarioDTO) => {
         // Construir la solicitud
@@ -172,13 +163,13 @@ export class ViewPropiedadComponent implements OnInit, AfterViewInit {
         this.solicitudService.crearSolicitud(this.solicitud).subscribe({
           next: (data: SolicitudDTO) => {
             console.log('Solicitud creada exitosamente:', data);
-            // Navegar al componente de pago o a otra ruta
+            //Navegar al componente de pago
             this.router.navigate([
               'explorar',
               this.usuarioActualId,
               'view-propiedad',
-              this.propiedadId,
-              'detalles-reserva'
+              data.solicitudId, //mas bien mandar el id de la solicitud
+              'pagar-reserva',
             ]);
           },
           error: (err) => {
@@ -199,5 +190,22 @@ export class ViewPropiedadComponent implements OnInit, AfterViewInit {
     return d.toISOString().split(".")[0] + 'Z'; // Elimina los milisegundos
   }
 
+
+  //lo del incrementar huespedes
+  incrementarHuespedes() {
+    if (this.solicitud.huespedes < (this.propiedad?.cantPersonas || 1)) {
+      this.solicitud.huespedes++;
+      this.errorMensaje = '';
+    } else {
+      this.errorMensaje = `Máximo de personas: ${this.propiedad?.cantPersonas}`;
+      setTimeout(() => this.errorMensaje = '', 3000);
+    }
+  }
+
+  decrementarHuespedes() {
+    if (this.solicitud.huespedes > 1) {
+      this.solicitud.huespedes--;
+    }
+  }
 
 }

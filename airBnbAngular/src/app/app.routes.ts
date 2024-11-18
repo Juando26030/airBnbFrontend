@@ -45,9 +45,10 @@ export const routes: Routes = [
         component: DetallesReservaComponent,
       },
       {
-        path: 'view-propiedad/:idP/pagar-reserva',
+        path: 'view-propiedad/:idS/pagar-reserva', //se manda el id de la solicitud
         component: PagarReservaComponent,
       }
+
     ],
   },
 
