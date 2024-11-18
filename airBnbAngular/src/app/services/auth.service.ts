@@ -13,7 +13,8 @@ import {Auth} from "../DTOs/auth";
 export class AuthService {
   token: string | null = null;
   rol: Rol | null = null;
-  username: string | null = null;
+  correo: string | null = null;
+  usuarioId: number | null = null;
 
   private baseUrl = `${environment.SERVER_URL}/autenticacion`;
   private registerUrl = `${environment.SERVER_URL}/usuarios`;
@@ -21,7 +22,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('auth_token');
     this.rol = localStorage.getItem('auth_role') as Rol | null;
-    this.username = localStorage.getItem('username');
+    this.correo = localStorage.getItem('correo');
   }
 
   public register(user: any): Observable<any> {
@@ -47,41 +48,42 @@ export class AuthService {
     }
   }
 
-  public login(username: string, password: string): Observable<string> {
+  public login(correo: string, contrasenia: string): Observable<Auth> { // Cambiado a Observable<Auth>
     console.log('Iniciando proceso de login en AuthService');
 
     return this.http
-      .post<Auth>(`${this.baseUrl}/login`, { username, password })
+      .post<Auth>(`${this.baseUrl}/login`, { correo, contrasenia })
       .pipe(
         tap((data) => {
           console.log('Respuesta recibida del servidor:', data);
 
-          // Asignación y almacenamiento de token y rol
+          // Asignación y almacenamiento de token, rol, correo e ID de usuario
           this.token = data.accessToken;
           this.rol = data.rol;
-          this.username = username;
+          this.correo = data.correo;
+          this.usuarioId = data.usuarioId;
 
           localStorage.setItem('auth_token', this.token);
           localStorage.setItem('auth_role', this.rol);
-          localStorage.setItem('username', username);
+          localStorage.setItem('correo', this.correo);
+          localStorage.setItem('usuarioId', this.usuarioId.toString());
 
-          // Verificación de token y rol
+          // Verificación de datos almacenados
           console.log('Token guardado:', this.token);
-          console.log('Role asignado:', this.rol);
-        }),
-        map((data) => {
-          console.log('Rol devuelto por el servidor:', data.rol);
-          return data.rol;
+          console.log('Rol asignado:', this.rol);
+          console.log('Correo guardado:', this.correo);
+          console.log('Id de usuario guardado:', this.usuarioId);
         })
       );
   }
+
 
   public logout(): void {
     console.log('Cerrando sesión y eliminando datos de autenticación');
     this.token = null;
     localStorage.removeItem('auth_token');
     localStorage.removeItem('auth_role');
-    localStorage.removeItem('username');
+    localStorage.removeItem('correo');
   }
 
   public getToken(): string {

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../../services/usuario.service';
-import { LoginDTO } from '../../../DTOs/LoginDTO';
-import { UsuarioDTO } from '../../../DTOs/UsuarioDTO';
+import { AuthService } from '../../../services/auth.service';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -16,9 +15,10 @@ import { NgIf } from '@angular/common';
 export class LoginComponent {
   correo: string = '';
   contrasenia: string = '';
+  loading: boolean = false; // Indicador de carga
   errorMsg: string | null = null;
 
-  constructor(private router: Router, private usuarioService: UsuarioService) {}
+  constructor(private router: Router, private usuarioService: UsuarioService, private authService: AuthService) {}
 
   goHome() {
     this.router.navigate(['/']);
@@ -26,33 +26,23 @@ export class LoginComponent {
 
   onSubmit() {
     if (!this.correo || !this.contrasenia) {
-      this.errorMsg = 'Todos los campos son obligatorios.';
+      alert('Por favor, ingrese su correo y contraseña');
       return;
     }
 
-    const loginDTO: LoginDTO = {
-      correo: this.correo,
-      contrasenia: this.contrasenia,
-    };
+    this.loading = true;
 
-    this.usuarioService.login(loginDTO).subscribe({
-      next: (response) => {
-        if (response && response.usuarioId) {
-          // Guardar el usuario en localStorage para acceder a su rol
-          localStorage.setItem('usuario', JSON.stringify(response));
-          console.log('El usuario id: ' + response.usuarioId);
-          console.log('El usuario rol: ' + response.rol);
-
-          // Redirigir al componente "explorar" con el ID del usuario
-          this.router.navigate(['/explorar', response.usuarioId]);
-        } else {
-          this.errorMsg = 'Credenciales incorrectas.';
-        }
+    this.authService.login(this.correo, this.contrasenia).subscribe(
+      (data) => {
+        this.loading = false;
+        // Redirigir a la ruta "explorar" con el ID del usuario
+        this.router.navigate([`/explorar/${data.usuarioId}`]);
       },
-      error: (error) => {
-        console.error('Error en el inicio de sesión:', error);
-        this.errorMsg = 'Error en el inicio de sesión. Por favor, intente nuevamente.';
-      },
-    });
+      (error) => {
+        this.loading = false;
+        this.errorMsg = 'Usuario o contraseña incorrectos';
+      }
+    );
   }
+
 }
