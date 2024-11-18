@@ -36,12 +36,14 @@ export class UsuarioService {
 
   // Crear usuario
   crearUsuario(usuario: UsuarioDTO): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
     return this.http
-      .post(
-        `${environment.SERVER_URL}/api/usuarios`,
-        usuario,
-        this.refreshHttpOptions() // Utilizamos refreshHttpOptions() aquí
-      )
+      .post(`${environment.SERVER_URL}/api/usuarios`, usuario, httpOptions)
       .pipe(
         catchError((error) => {
           console.error('Error al crear el usuario:', error);
