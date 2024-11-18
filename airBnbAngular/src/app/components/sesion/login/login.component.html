@@ -1,8 +1,18 @@
 <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
 </head>
 <div class="cuerpo">
   <div class="login-container">
@@ -14,12 +24,33 @@
     <div class="cont-formulario">
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <!-- Correo -->
-        <input type="text" name="correo" placeholder="Correo" required [(ngModel)]="correo" #correoInput="ngModel">
-        <div *ngIf="correoInput.invalid && correoInput.touched" class="error">El correo es obligatorio.</div>
+        <input
+          type="text"
+          name="correo"
+          placeholder="Correo"
+          required
+          [(ngModel)]="correo"
+          #correoInput="ngModel"
+        />
+        <div *ngIf="correoInput.invalid && correoInput.touched" class="error">
+          El correo es obligatorio.
+        </div>
 
         <!-- Contraseña -->
-        <input type="password" name="contrasenia" placeholder="Contraseña" required [(ngModel)]="contrasenia" #contraseniaInput="ngModel">
-        <div *ngIf="contraseniaInput.invalid && contraseniaInput.touched" class="error">La contraseña es obligatoria.</div>
+        <input
+          type="password"
+          name="contrasenia"
+          placeholder="Contraseña"
+          required
+          [(ngModel)]="contrasenia"
+          #contraseniaInput="ngModel"
+        />
+        <div
+          *ngIf="contraseniaInput.invalid && contraseniaInput.touched"
+          class="error"
+        >
+          La contraseña es obligatoria.
+        </div>
 
         <!-- Botón Login -->
         <button type="submit" [disabled]="!loginForm.form.valid">Login</button>

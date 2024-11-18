@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {Router, RouterLink} from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { Router, RouterLink } from "@angular/router";
+import { UsuarioDTO } from "../../../DTOs/UsuarioDTO";
+import { Rol } from "../../../DTOs/rol";
+import { CommonModule } from "@angular/common";
 import {UsuarioService} from "../../../services/usuario.service";
-import {UsuarioDTO} from "../../../DTOs/UsuarioDTO";
-import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-crear-usuario',
@@ -14,55 +15,64 @@ import {CommonModule} from "@angular/common";
     CommonModule
   ],
   templateUrl: './crear-usuario.component.html',
-  styleUrl: './crear-usuario.component.css'
+  styleUrls: ['./crear-usuario.component.css']
 })
-
 export class CrearUsuarioComponent {
   nombre: string = '';
   correo: string = '';
   telefono: string = '';
-  arrendador: boolean = false;
-  arrendatario: boolean = false;
   contrasenia: string = '';
   confirmarContrasenia: string = '';
+  rolSeleccionado: { id: number; tipoRol: Rol } | null = null; // Cambiado para reflejar el formato de rol
   errorMsg: string | null = null;
 
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
+  // Método para seleccionar el rol
+  seleccionarRol(tipoRol: Rol) {
+    this.rolSeleccionado = {
+      id: tipoRol === Rol.Arrendador ? 1 : 2, // Asignar ID según el tipo de rol
+      tipoRol: tipoRol, // Usar el valor del enum directamente
+    };
+  }
+
+  // Validación y envío del formulario
   onSubmit() {
-    // Validar que las contraseñas coincidan
+    // Validar contraseñas
     if (this.contrasenia !== this.confirmarContrasenia) {
       this.errorMsg = "Las contraseñas no coinciden.";
       return;
     }
 
-    // Validar que al menos un rol esté seleccionado
-    if (!this.arrendador && !this.arrendatario) {
-      this.errorMsg = "Debe seleccionar al menos un rol.";
+    // Validar que un rol esté seleccionado
+    if (!this.rolSeleccionado) {
+      this.errorMsg = "Debe seleccionar un rol.";
       return;
     }
 
-    // Crear el objeto de usuario conforme a la estructura de UsuarioDTO
+    // Crear el objeto UsuarioDTO
     const usuario: UsuarioDTO = {
-      usuarioId: 0, // Este campo lo puedes omitir o poner un valor temporal, será manejado por el backend
-      nombre: this.nombre,
-      correo: this.correo,
-      telefono: this.telefono,
+      usuarioId: 0,
+      nombre: this.nombre.trim(),
+      correo: this.correo.trim(),
+      telefono: this.telefono.trim(),
       contrasenia: this.contrasenia,
-      confirmarContrasenia: this.confirmarContrasenia, // Asegúrate de que se envíe este campo
-      rol: this.arrendador ? 'arrendador' : 'arrendatario',
-      estado: 'PENDIENTE', // Asignar estado inicial, por ejemplo, 'PENDIENTE'
-      autenticado: false // El usuario no está autenticado inicialmente
+      confirmarContrasenia: this.confirmarContrasenia,
+      rol: this.rolSeleccionado, // Usar el rol seleccionado
+      estado: "activo",
+      autenticado: false,
     };
 
     // Llamar al servicio para crear el usuario
     this.usuarioService.crearUsuario(usuario).subscribe({
       next: (response) => {
-        // Redirigir al componente de usuario creado si el usuario se crea correctamente
+        // Redirigir al componente de confirmación
         this.router.navigate(['/sesion/usuario-creado'], { queryParams: { correo: this.correo } });
       },
       error: (error) => {
-        this.errorMsg = "Error al crear usuario. Verifique si el correo ya está registrado.";
+        this.errorMsg = error.error && typeof error.error === 'string'
+          ? error.error
+          : "Error al crear usuario. Intente nuevamente.";
         console.error('Error al crear usuario:', error);
       }
     });
@@ -71,4 +81,6 @@ export class CrearUsuarioComponent {
   goHome() {
     this.router.navigate(['/']);
   }
+
+  protected readonly Rol = Rol;
 }
