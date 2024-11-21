@@ -14,7 +14,6 @@ import { MenuComponent } from "../menu/menu.component";
     PropiedadComponent,
     NgIf,
     FiltrosBusquedaComponent,
-    FooterComponent,
     MenuComponent,
     RouterOutlet
   ],

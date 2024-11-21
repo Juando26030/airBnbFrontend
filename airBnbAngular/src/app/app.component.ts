@@ -13,7 +13,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, MenuComponent, CardPropiedadComponent, PropiedadComponent, FooterComponent, DashboardSesionComponent, CommonModule],
+  imports: [RouterOutlet, MenuComponent, FooterComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
