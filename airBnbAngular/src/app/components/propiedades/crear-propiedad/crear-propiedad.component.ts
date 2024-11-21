@@ -84,7 +84,7 @@ export class CrearPropiedadComponent implements OnInit {
       console.log('Antes de crear propiedad');
       console.log(this.propiedad);
       this.propiedadService.crearPropiedad(this.propiedad).subscribe(
-        () => this.router.navigate(['/dashboard']),
+        () => this.router.navigate(['/explorar/'+this.arrendadorId]),
         (error) => this.errorMsg = 'Error al crear la propiedad'
       );
     } else {

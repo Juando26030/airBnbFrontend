@@ -64,4 +64,8 @@ export class SolicitudService {
         })
       );
   }
+
+  getSolicitudesByArrendadorId(arrendadorId: number): Observable<SolicitudDTO[]> {
+    return this.http.get<SolicitudDTO[]>(`${environment.SERVER_URL}/api/solicitudes/de-arrendador/${arrendadorId}`, this.refreshHttpOptions());
+  }
 }

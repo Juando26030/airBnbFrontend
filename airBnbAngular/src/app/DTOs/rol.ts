@@ -1,4 +1,4 @@
 export enum Rol {
-  Arrendador = 'USUARIO',
-  Arrendatario = 'ADMIN',
+  Arrendador = 'ADMIN',
+  Arrendatario = 'USUARIO',
 }

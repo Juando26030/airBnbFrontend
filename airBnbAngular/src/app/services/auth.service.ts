@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import {environment} from "../environments/environment.development";
-import {Rol} from "../DTOs/rol";
-import {Auth} from "../DTOs/auth";
+import { environment } from "../environments/environment.development";
+import { Rol } from "../DTOs/rol";
+import { Auth } from "../DTOs/auth";
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +20,17 @@ export class AuthService {
   private registerUrl = `${environment.SERVER_URL}/usuarios`;
 
   constructor(private http: HttpClient) {
-    this.token = localStorage.getItem('auth_token');
-    this.rol = localStorage.getItem('auth_role') as Rol | null;
-    this.correo = localStorage.getItem('correo');
+    if (this.isBrowser()) {
+      this.token = localStorage.getItem('auth_token');
+      this.rol = localStorage.getItem('auth_role') as Rol | null;
+      this.correo = localStorage.getItem('correo');
+      this.usuarioId = Number(localStorage.getItem('usuarioId'));
+    }
+  }
+
+  // Verificar si se está ejecutando en el navegador
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
   public register(user: any): Observable<any> {
@@ -38,7 +46,6 @@ export class AuthService {
     );
   }
 
-
   public async isAuthenticated(): Promise<boolean> {
     try {
       await this.refresh().toPromise();
@@ -48,42 +55,45 @@ export class AuthService {
     }
   }
 
-  public login(correo: string, contrasenia: string): Observable<Auth> { // Cambiado a Observable<Auth>
+  public login(correo: string, contrasenia: string): Observable<Auth> {
     console.log('Iniciando proceso de login en AuthService');
 
-    return this.http
-      .post<Auth>(`${this.baseUrl}/login`, { correo, contrasenia })
-      .pipe(
-        tap((data) => {
-          console.log('Respuesta recibida del servidor:', data);
+    return this.http.post<Auth>(`${this.baseUrl}/login`, { correo, contrasenia }).pipe(
+      tap((data) => {
+        console.log('Respuesta recibida del servidor:', data);
 
-          // Asignación y almacenamiento de token, rol, correo e ID de usuario
-          this.token = data.accessToken;
-          this.rol = data.rol;
-          this.correo = data.correo;
-          this.usuarioId = data.usuarioId;
+        // Asignación y almacenamiento de token, rol, correo e ID de usuario
+        this.token = data.accessToken;
+        this.rol = data.rol;
+        this.correo = data.correo;
+        this.usuarioId = data.usuarioId;
 
+        if (this.isBrowser()) {
           localStorage.setItem('auth_token', this.token);
           localStorage.setItem('auth_role', this.rol);
           localStorage.setItem('correo', this.correo);
           localStorage.setItem('usuarioId', this.usuarioId.toString());
+        }
 
-          // Verificación de datos almacenados
-          console.log('Token guardado:', this.token);
-          console.log('Rol asignado:', this.rol);
-          console.log('Correo guardado:', this.correo);
-          console.log('Id de usuario guardado:', this.usuarioId);
-        })
-      );
+        // Verificación de datos almacenados
+        console.log('Token guardado:', this.token);
+        console.log('Rol asignado:', this.rol);
+        console.log('Correo guardado:', this.correo);
+        console.log('Id de usuario guardado:', this.usuarioId);
+      })
+    );
   }
-
 
   public logout(): void {
     console.log('Cerrando sesión y eliminando datos de autenticación');
     this.token = null;
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('auth_role');
-    localStorage.removeItem('correo');
+
+    if (this.isBrowser()) {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('auth_role');
+      localStorage.removeItem('correo');
+      localStorage.removeItem('usuarioId');
+    }
   }
 
   public getToken(): string {
@@ -100,7 +110,9 @@ export class AuthService {
       .pipe(
         tap((data) => {
           this.token = data.accessToken;
-          localStorage.setItem('auth_token', this.token);
+          if (this.isBrowser()) {
+            localStorage.setItem('auth_token', this.token);
+          }
           console.log('Token actualizado en refresh:', this.token);
         }),
         map((data) => data.accessToken)

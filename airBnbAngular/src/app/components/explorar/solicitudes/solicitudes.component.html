@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Solicitudes para tus propiedades</h2>
+  <div *ngIf="solicitudes.length === 0" class="alert alert-info">
+    No hay solicitudes disponibles.
+  </div>
+  <table *ngIf="solicitudes.length > 0" class="table table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Propiedad</th>
+      <th>Arrendatario</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Huéspedes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let solicitud of solicitudes">
+      <td>{{ solicitud.solicitudId }}</td>
+      <td>{{ solicitud.propiedad.nombre }}</td>
+      <td>{{ solicitud.arrendatario.nombre }}</td>
+      <td>{{ solicitud.fechaInicio | date:'short' }}</td>
+      <td>{{ solicitud.fechaFin | date:'short' }}</td>
+      <td>{{ solicitud.huespedes }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

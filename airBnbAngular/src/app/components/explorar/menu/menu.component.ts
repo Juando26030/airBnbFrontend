@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router'; // Inject ActivatedRoute
+import { Router, ActivatedRoute } from '@angular/router';
+import {UsuarioService} from "../../../services/usuario.service";
 
 @Component({
   selector: 'app-menu',
@@ -12,31 +13,59 @@ import { Router, ActivatedRoute } from '@angular/router'; // Inject ActivatedRou
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  public esArrendador: boolean = false;
-  private arrendadorId: string | null = null; // Store the extracted ID from the route
+  public esAdmin: boolean = false; // Indica si el usuario es ADMIN o ARRENDADOR
+  private usuarioIdS: string | null = null; // ID del usuario extraído de la ruta
+  private usuarioId: number = 0; // ID del usuario convert
 
-  constructor(private router: Router, private route: ActivatedRoute) {} // Inject ActivatedRoute
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private usuarioService: UsuarioService
+  ) {}
 
   ngOnInit() {
-    // Verifica si estamos en un entorno de navegador
-    if (typeof window !== 'undefined' && localStorage) {
-      const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-      this.esArrendador = usuario.rol === 'arrendador';
-    } else {
-      console.warn('localStorage no está disponible en este entorno.');
-    }
-
-    // Extract 'id' from the route parameters
+    console.log('Inicializando componente MenuComponent');
+    // Extraer ID de usuario desde los parámetros de la ruta
     this.route.paramMap.subscribe(params => {
-      this.arrendadorId = params.get('idU');
+      this.usuarioIdS = params.get('idU');
+      if(this.usuarioIdS!=null){
+        this.usuarioId = +this.usuarioIdS
+        this.esAdminFun();
+      }
     });
+
   }
+
+  esAdminFun(){
+    this.usuarioService.esArrendador(this.usuarioId).subscribe(
+      (resultado: boolean) => {
+        this.esAdmin = resultado;
+        console.log('Resultado del servicio esArrendador:', resultado);
+        this.cdr.detectChanges(); // Forzar detección de cambios
+      },
+      (error) => {
+        console.error('Error al obtener si es arrendador:', error);
+      }
+    );
+  }
+
 
   irACrearPropiedad() {
-    if (this.arrendadorId) {
-      this.router.navigate([`/explorar/${this.arrendadorId}/crear-propiedad`]);
+    if (this.usuarioId) {
+      this.router.navigate([`/explorar/${this.usuarioId}/crear-propiedad`]);
     } else {
-      console.error('Arrendador ID no está disponible');
+      console.error('Usuario ID no está disponible');
     }
   }
+
+  irAVerSolicitudes() {
+    if (this.usuarioId) {
+      console.log('Enviando ID de arrendador:', this.usuarioId);
+      this.router.navigate([`/explorar/${this.usuarioId}/solicitudes`]);
+    } else {
+      console.error('Usuario ID no está disponible');
+    }
+  }
+
 }

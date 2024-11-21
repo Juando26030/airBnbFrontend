@@ -13,6 +13,7 @@ import { DetallesReservaComponent } from "./components/pago/detalles-reserva/det
 import { PagarReservaComponent } from "./components/pago/pagar-reserva/pagar-reserva.component";
 import { PagoConfirmadoComponent } from "./components/pago/pago-confirmado/pago-confirmado.component";
 import { VentanaReservaComponent } from "./components/pago/ventana-reserva/ventana-reserva.component";
+import {SolicitudesComponent} from "./components/explorar/solicitudes/solicitudes.component";
 
 export const routes: Routes = [
   {
@@ -47,10 +48,12 @@ export const routes: Routes = [
       {
         path: 'view-propiedad/:idS/pagar-reserva', //se manda el id de la solicitud
         component: PagarReservaComponent,
-      }
-
+      },
+      { path: 'solicitudes', component: SolicitudesComponent}
     ],
   },
+
+  { path: 'pago-confirmado', component: PagoConfirmadoComponent }, // Ruta de confirmación de pago
 
   // Redireccionamientos
   { path: '', pathMatch: 'full', redirectTo: 'sesion' },

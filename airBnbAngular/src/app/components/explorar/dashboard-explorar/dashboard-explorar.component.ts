@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { PropiedadComponent } from "../../propiedades/propiedad/propiedad.component";
 import { UsuarioService } from "../../../services/usuario.service";
-import { PropiedadService } from "../../../services/propiedad.service";
 import { NgIf } from "@angular/common";
 import { FiltrosBusquedaComponent } from "../filtros-busqueda/filtros-busqueda.component";
 import { FooterComponent } from "../footer/footer.component";
@@ -26,26 +25,26 @@ export class DashboardExplorarComponent implements OnInit {
   @ViewChild(PropiedadComponent) propiedadComponent!: PropiedadComponent;
 
   public usuarioId!: number;
-  public esArrendador: boolean = false; // Bandera para verificar si es arrendador
+  public esArrendador: boolean = false;
   public enCrearPropiedad: boolean = false;
-  public enVistaPropiedad: boolean = false; // Bandera para controlar si estamos en la vista de propiedad
+  public enVistaPropiedad: boolean = false;
 
   constructor(
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef // Forzar detección de cambios
   ) {}
 
   ngOnInit(): void {
-    // Obtener el usuarioId de la ruta
     this.route.params.subscribe(params => {
-      this.usuarioId = +params['idU']; // '+' convierte el string a número
+      this.usuarioId = +params['idU'];
 
-      // Llamar al servicio y suscribirse al resultado
       this.usuarioService.esArrendador(this.usuarioId).subscribe(
         (resultado: boolean) => {
-          this.esArrendador = resultado; // Asignar el valor retornado a esArrendador
-          console.log('Resultado del servicio esArrendador:', resultado); // Imprimir resultado en consola
+          this.esArrendador = resultado;
+          console.log('Resultado del servicio esArrendador:', resultado);
+          this.cdr.detectChanges(); // Forzar detección de cambios
         },
         (error) => {
           console.error('Error al obtener si es arrendador:', error);
@@ -53,11 +52,8 @@ export class DashboardExplorarComponent implements OnInit {
       );
     });
 
-    // Detectar cambios en la ruta para ocultar o mostrar los componentes
     this.router.events.subscribe(() => {
-      // Verifica si la ruta es '/explorar/:id/crear-propiedad'
       this.enCrearPropiedad = this.router.url.includes('crear-propiedad');
-      // Verifica si la ruta es '/explorar/:id/view-propiedad/:idP'
       this.enVistaPropiedad = this.router.url.includes('view-propiedad');
     });
   }

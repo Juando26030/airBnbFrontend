@@ -8,43 +8,41 @@
         </p>
       </a></li>
 
-      <!-- Opciones específicas para el arrendador -->
-      <li *ngIf="esArrendador"><a href="#" class="nav__link">
-        <p class="nav__text">
-          Ver solicitudes
-        </p>
-      </a></li>
-      <li *ngIf="esArrendador"><a href="#" class="nav__link">
-        <p class="nav__text">
-          Historial de solicitudes
-        </p>
-      </a></li>
-      <li *ngIf="esArrendador"><a href="#" class="nav__link">
-        <p class="nav__text">
-          Mi perfil
-        </p>
-      </a></li>
+      <!-- Opciones específicas para el admin (ADMIN o ARRENDADOR) -->
+      <li *ngIf="esAdmin">
+        <a href="#" class="nav__link" (click)="irAVerSolicitudes()">
+          <p class="nav__text">
+            Ver solicitudes
+          </p>
+        </a>
+      </li>
 
-      <!-- Opciones generales si no es arrendador -->
-      <li *ngIf="!esArrendador"><a href="#" class="nav__link">
-        <p class="nav__text">
-          Conocer fincas
-        </p>
-      </a></li>
-      <li *ngIf="!esArrendador"><a href="#" class="nav__link">
-        <p class="nav__text">
-          Sobre nosotros
-        </p>
-      </a></li>
-      <li *ngIf="!esArrendador"><a href="#" class="nav__link">
-        <p class="nav__text">
-          Contacto
-        </p>
-      </a></li>
+      <!-- Opciones generales para usuarios normales -->
+      <li *ngIf="!esAdmin">
+        <a href="#" class="nav__link">
+          <p class="nav__text">
+            Conocer fincas
+          </p>
+        </a>
+      </li>
+      <li *ngIf="!esAdmin">
+        <a href="#" class="nav__link">
+          <p class="nav__text">
+            Sobre nosotros
+          </p>
+        </a>
+      </li>
+      <li *ngIf="!esAdmin">
+        <a href="#" class="nav__link">
+          <p class="nav__text">
+            Contacto
+          </p>
+        </a>
+      </li>
     </ul>
 
-    <!-- Botón para arrendador -->
-    <button class="login-btn" *ngIf="esArrendador" (click)="irACrearPropiedad()">Crear propiedad</button>
+    <!-- Botón para admins (ADMIN o ARRENDADOR) -->
+    <button class="login-btn" *ngIf="esAdmin" (click)="irACrearPropiedad()">Crear propiedad</button>
 
     <!-- Botón de login -->
     <button class="login-btn">Log in</button>
