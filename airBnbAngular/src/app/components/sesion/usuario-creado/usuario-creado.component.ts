@@ -1,10 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-usuario-creado',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './usuario-creado.component.html',
   styleUrl: './usuario-creado.component.css'
 })

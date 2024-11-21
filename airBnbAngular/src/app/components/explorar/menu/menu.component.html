@@ -1,8 +1,8 @@
 <header>
   <nav class="navbar">
-    <div class="logo"></div>
+    <div (click)="irAHome()" class="logo"></div>
     <ul class="nav-links">
-      <li><a href="#" class="nav__link">
+      <li><a (click)="irAHome()" class="nav__link">
         <p class="nav__text">
           Home
         </p>
@@ -10,7 +10,7 @@
 
       <!-- Opciones específicas para el admin (ADMIN o ARRENDADOR) -->
       <li *ngIf="esAdmin">
-        <a href="#" class="nav__link" (click)="irAVerSolicitudes()">
+        <a class="nav__link" (click)="irAVerSolicitudes()">
           <p class="nav__text">
             Ver solicitudes
           </p>
@@ -45,6 +45,6 @@
     <button class="login-btn" *ngIf="esAdmin" (click)="irACrearPropiedad()">Crear propiedad</button>
 
     <!-- Botón de login -->
-    <button class="login-btn">Log in</button>
+    <button (click)="irALogin()"  class="login-btn">Log in</button>
   </nav>
 </header>

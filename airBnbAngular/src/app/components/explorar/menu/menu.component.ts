@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute, RouterLink} from '@angular/router';
 import {UsuarioService} from "../../../services/usuario.service";
 
 @Component({
@@ -8,7 +8,8 @@ import {UsuarioService} from "../../../services/usuario.service";
   standalone: true,
   templateUrl: './menu.component.html',
   imports: [
-    NgIf
+    NgIf,
+    RouterLink
   ],
   styleUrls: ['./menu.component.css']
 })
@@ -67,5 +68,23 @@ export class MenuComponent implements OnInit {
       console.error('Usuario ID no está disponible');
     }
   }
+
+  irAHome() {
+    if (this.usuarioId) {
+      console.log('Enviando ID de arrendador:', this.usuarioId);
+      this.router.navigate([`/explorar/${this.usuarioId}`]);
+    } else {
+      console.error('Usuario ID no está disponible');
+    }
+  }
+  irALogin() {
+    if (this.usuarioId) {
+      console.log('Enviando ID de arrendador:', this.usuarioId);
+      this.router.navigate([`/`]);
+    } else {
+      console.error('Usuario ID no está disponible');
+    }
+  }
+
 
 }

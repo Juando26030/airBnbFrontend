@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgIf, NgForOf, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -55,21 +55,13 @@ export class ViewPropiedadComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private propiedadService: PropiedadService,
     private usuarioService: UsuarioService,
+    private cdr: ChangeDetectorRef,
     private solicitudService: SolicitudService,
     private router: Router
   ) {}
 
   ngOnInit() {
-
-      // Verifica si estamos en un entorno de navegador
-      if (typeof window !== 'undefined' && localStorage) {
-        const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-        this.esArrendador = usuario.rol === 'arrendador';
-      } else {
-        console.warn('localStorage no está disponible en este entorno.');
-      }
-
-    // Suscríbete a los parámetros del padre para obtener 'idU'
+// Suscríbete a los parámetros del padre para obtener 'idU'
     this.route.parent?.params.subscribe({
       next: (params: Params) => {
         this.usuarioActualId = +params['idU'] || 0;
@@ -77,6 +69,19 @@ export class ViewPropiedadComponent implements OnInit, AfterViewInit {
       },
       error: (err) => console.error('Error obteniendo usuarioActualId:', err)
     });
+
+    this.usuarioService.esArrendador(this.usuarioActualId).subscribe(
+      (resultado: boolean) => {
+        this.esArrendador = resultado;
+        console.log('Resultado del servicio esArrendador:', resultado);
+        this.cdr.detectChanges(); // Forzar detección de cambios
+      },
+      (error) => {
+        console.error('Error al obtener si es arrendador:', error);
+      }
+    );
+
+
 
     // Suscríbete a los parámetros actuales para obtener 'idP'
     this.route.params.subscribe({

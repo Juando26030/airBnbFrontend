@@ -105,17 +105,19 @@ export class AuthService {
       Authorization: `Bearer ${this.token}`,
     });
 
-    return this.http
-      .post<Auth>(`${this.baseUrl}/refresh`, {}, { headers })
-      .pipe(
-        tap((data) => {
-          this.token = data.accessToken;
-          if (this.isBrowser()) {
-            localStorage.setItem('auth_token', this.token);
-          }
-          console.log('Token actualizado en refresh:', this.token);
-        }),
-        map((data) => data.accessToken)
-      );
+    return this.http.post<Auth>(`${this.baseUrl}/refresh`, {}, { headers }).pipe(
+      tap((data) => {
+        this.token = data.accessToken;
+        if (this.isBrowser()) {
+          localStorage.setItem('auth_token', this.token);
+        }
+      }),
+      catchError((error) => {
+        console.error('Error al refrescar el token:', error);
+        this.logout(); // Opcional: forzar logout si el token es inválido
+        return throwError(() => new Error('Error al refrescar el token.'));
+      })
+    );
   }
+
 }

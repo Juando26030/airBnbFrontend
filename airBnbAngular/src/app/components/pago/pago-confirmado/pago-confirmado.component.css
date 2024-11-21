@@ -73,7 +73,24 @@
 .confirm__button {
   border-radius: 40px;
   background-color: #064749;
-  width: 223px;
+  width: 253px;
+  height: 48px;
+  padding: 12px 40px;
+  color: #fff;
+  font-size: 17.5px;
+  line-height: 24px;
+  margin-top: 32px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.confirm__button-window {
+  border-radius: 40px;
+  background-color: #064749;
+  width: 303px;
   height: 48px;
   padding: 12px 40px;
   color: #fff;
@@ -142,7 +159,7 @@
 .confirmation-modal__content button {
   border-radius: 40px;
   background-color: #064749;
-  width: 281px;
+  width: 331px;
   height: 48px;
   padding: 12px 40px;
   color: #fff;

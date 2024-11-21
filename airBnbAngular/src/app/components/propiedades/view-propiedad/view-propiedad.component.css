@@ -663,4 +663,9 @@ input:checked + .slider:before {
   cursor: pointer;
   border: 2px solid #000;
 }
+.details__left-guests-buttons {
+  display: flex;
+  align-items: center;
+}
+
 
